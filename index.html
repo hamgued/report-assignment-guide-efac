@@ -322,7 +322,7 @@ a.ilink:hover { opacity:.8; }
   <div class="sec-label">What is this assignment?</div>
 
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))">
+    <div class="accord-head" onclick="handleAccord(event, this)">
       <div class="accord-title">📋 Overview and individual work</div>
       <span class="accord-chev">▾</span>
     </div>
@@ -336,7 +336,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Learning goals -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))">
+    <div class="accord-head" onclick="handleAccord(event, this)">
       <div class="accord-title">🎯 Learning goals</div>
       <span class="accord-chev">▾</span>
     </div>
@@ -349,7 +349,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Workload -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))">
+    <div class="accord-head" onclick="handleAccord(event, this)">
       <div class="accord-title">⏱️ How long will this take? <span style="font-weight:400;color:var(--muted);font-size:12px;margin-left:6px">60–70 hours · 2.5 ECTS credits</span></div>
       <span class="accord-chev">▾</span>
     </div>
@@ -406,7 +406,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Report structure quick view -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))">
+    <div class="accord-head" onclick="handleAccord(event, this)">
       <div class="accord-title">📄 Report structure <span style="font-weight:400;color:var(--muted);font-size:12px;margin-left:6px">Cover · §1–5 · References · Appendices</span></div>
       <span class="accord-chev">▾</span>
     </div>
@@ -432,22 +432,22 @@ a.ilink:hover { opacity:.8; }
   <!-- Semester timeline -->
   <div class="sec-label" style="margin-top:20px">Semester timeline</div>
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="ibadge" style="background:#0ea5e9">🌱</div><div><div class="accord-title">Early semester</div><div class="accord-sub">Choose your topic, start researching</div></div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="ibadge" style="background:#0ea5e9">🌱</div><div><div class="accord-title">Early semester</div><div class="accord-sub">Choose your topic, start researching</div></div><span class="accord-chev">▾</span></div>
     <div class="accord-body"><p>Choose your business idea. Start searching for sources and drafting your term definitions in Section 2. Build your reference list as you read.</p></div>
   </div>
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="ibadge" style="background:var(--amber)">✏️</div><div><div class="accord-title">Mid semester</div><div class="accord-sub">First draft, peer feedback, AI feedback</div></div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="ibadge" style="background:var(--amber)">✏️</div><div><div class="accord-title">Mid semester</div><div class="accord-sub">First draft, peer feedback, AI feedback</div></div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <p>Complete your first draft — all sections should have real content (mostly complete). Give and receive peer feedback. Get AI proofreading feedback in class with your instructor.</p>
       <div class="alert alert-info" style="margin-top:10px"><strong>What counts as a first draft?</strong> All template sections are present and contain real content. Perfect grammar is not required — errors are normal and expected. You can use placeholders like <em>TBC</em> (to be completed) or <em>NSS</em> (needs a source). The purpose of the first draft is to have something to review and improve.</div>
     </div>
   </div>
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="ibadge" style="background:#7c3aed">📝</div><div><div class="accord-title">Midterm exam</div><div class="accord-sub">Write the abstract individually</div></div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="ibadge" style="background:#7c3aed">📝</div><div><div class="accord-title">Midterm exam</div><div class="accord-sub">Write the abstract individually</div></div><span class="accord-chev">▾</span></div>
     <div class="accord-body"><p>Sections 2 and 3 must be complete before the midterm exam. In the exam, you individually write an abstract (a short summary) of your report.</p></div>
   </div>
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="ibadge" style="background:#2DBDB6">🏁</div><div><div class="accord-title">End of semester — final deadline</div><div class="accord-sub">Submit and present</div></div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="ibadge" style="background:#2DBDB6">🏁</div><div><div class="accord-title">End of semester — final deadline</div><div class="accord-sub">Submit and present</div></div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <p>Finalize your report and give a short presentation based on your work. Upload the final version before the deadline — the submission link closes automatically.</p>
       <div class="alert alert-danger" style="margin-top:10px"><strong>No late submissions.</strong> The submission link closes at the deadline. Plan ahead.</div>
@@ -456,7 +456,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Submission steps -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">📤 How to submit</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">📤 How to submit</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <ol style="padding-left:20px;line-height:2">
         <li>Use the correct Word template. Do not rename sections or change the structure.</li>
@@ -468,13 +468,13 @@ a.ilink:hover { opacity:.8; }
     </div>
   </div>
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">📊 What is Turnitin?</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">📊 What is Turnitin?</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <p>Turnitin checks your report for similarity with other texts. It also includes AI writing detection. A high similarity score does not automatically mean plagiarism — correctly cited text will show as similar. Review the report and paraphrase anything that looks like it was copied without attribution.</p>
     </div>
   </div>
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">⚠️ What is plagiarism?</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">⚠️ What is plagiarism?</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <p>Plagiarism is using someone else's words or ideas without saying where they come from. This includes copying text without a citation, paraphrasing too closely, or submitting AI-generated text as your own. Always write in your own words and cite your sources. If you are not sure, cite — it is better to cite too much than too little.</p>
     </div>
@@ -544,7 +544,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Proofreading prompt -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">💡 Recommended proofreading prompt</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">💡 Recommended proofreading prompt</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <p>Copy and paste this into your AI tool when you want it to proofread — and only proofread — your writing:</p>
       <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:13px;margin-top:10px;font-family:monospace;line-height:1.8;color:var(--text)">
@@ -560,7 +560,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Part C: Scenario activity -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">🎯 Part C: Scenario Activity <span style="font-weight:400;color:var(--muted);font-size:12px;margin-left:6px">Drag each card to the correct category, or tap to select then tap a zone</span></div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">🎯 Part C: Scenario Activity <span style="font-weight:400;color:var(--muted);font-size:12px;margin-left:6px">Drag each card to the correct category, or tap to select then tap a zone</span></div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <div class="sc-pool" id="scPool"></div>
       <div class="dz-row">
@@ -583,7 +583,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Part D: Writing spectrum -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">📊 Part D: The Writing Spectrum <span style="font-weight:400;font-size:12px;margin-left:6px">(Inspired by <a href="https://www.linkedin.com/feed/update/urn:li:activity:7385644512616034304/?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7385644512616034304%2C7385807026507116544%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287385807026507116544%2Curn%3Ali%3Aactivity%3A7385644512616034304%29" target="_blank" style="color:var(--info)">Jim O'Mahony</a> and Ville Arvola, ITK2025)</span></div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">📊 Part D: The Writing Spectrum <span style="font-weight:400;font-size:12px;margin-left:6px">(Inspired by <a href="https://www.linkedin.com/feed/update/urn:li:activity:7385644512616034304/?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7385644512616034304%2C7385807026507116544%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287385807026507116544%2Curn%3Ali%3Aactivity%3A7385644512616034304%29" target="_blank" style="color:var(--info)">Jim O'Mahony</a> and Ville Arvola, ITK2025)</span></div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <p style="margin-bottom:12px">How much AI use is too much? Tap each level to explore.</p>
       <div class="spec-btns" id="specBtns"></div>
@@ -593,7 +593,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- AI tiers -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">🤖 Part E: Ethical AI Use Tiers <span style="font-weight:400;font-size:12px;margin-left:6px">(Inspired by <a href="https://doi.org/10.1186/s41077-025-00350-6" target="_blank" style="color:var(--info)">Cheng, Calhoun &amp; Reedy 2025</a>)</span></div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">🤖 Part E: Ethical AI Use Tiers <span style="font-weight:400;font-size:12px;margin-left:6px">(Inspired by <a href="https://doi.org/10.1186/s41077-025-00350-6" target="_blank" style="color:var(--info)">Cheng, Calhoun &amp; Reedy 2025</a>)</span></div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <p style="margin-bottom:12px">These three tiers describe different types of AI use. Know which tier your activity falls into before you start.</p>
       <div class="tier-btns" id="tierBtns">
@@ -619,7 +619,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Step 1 -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))">
+    <div class="accord-head" onclick="handleAccord(event, this)">
       <div class="ibadge" style="background:var(--info)">1</div>
       <div><div class="accord-title">Step 1 — Learn about AI</div><div class="accord-sub">Before you write · See the AI Rules tab</div></div>
       <span class="accord-chev">▾</span>
@@ -632,7 +632,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Step 2 -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))">
+    <div class="accord-head" onclick="handleAccord(event, this)">
       <div class="ibadge" style="background:#2DBDB6">2</div>
       <div><div class="accord-title">Step 2 — Peer Review</div><div class="accord-sub">In class · Write your reflection in Section 4.1</div></div>
       <span class="accord-chev">▾</span>
@@ -665,7 +665,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Step 3 -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))">
+    <div class="accord-head" onclick="handleAccord(event, this)">
       <div class="ibadge" style="background:var(--amber)">3</div>
       <div><div class="accord-title">Step 3 — AI Feedback</div><div class="accord-sub">In class · Write your reflection in Section 4.2</div></div>
       <span class="accord-chev">▾</span>
@@ -702,7 +702,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Step 4 -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))">
+    <div class="accord-head" onclick="handleAccord(event, this)">
       <div class="ibadge" style="background:var(--danger)">4</div>
       <div><div class="accord-title">Step 4 — Compare and Reflect</div><div class="accord-sub">Write Section 4.3</div></div>
       <span class="accord-chev">▾</span>
@@ -736,7 +736,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Step 5 -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))">
+    <div class="accord-head" onclick="handleAccord(event, this)">
       <div class="ibadge" style="background:#7c3aed">5</div>
       <div><div class="accord-title">Step 5 — Revise and Submit</div><div class="accord-sub">Update your draft based on feedback</div></div>
       <span class="accord-chev">▾</span>
@@ -768,7 +768,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Cover -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">📄 Cover page and author information</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">📄 Cover page and author information</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <ul>
         <li>Write the <strong>name of your business idea</strong> where it says "XYZ" at the top of the document.</li>
@@ -780,7 +780,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Section 1 -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">§ 1 — Introduction</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">§ 1 — Introduction</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <div class="alert alert-green">
         <strong>What to include:</strong>
@@ -803,7 +803,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Section 2 -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">§ 2 — Definitions of Key Business Plan Terms</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">§ 2 — Definitions of Key Business Plan Terms</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <p>Write one definition paragraph for each of the 8 terms below. Each paragraph must be <strong>5–7 sentences, approximately 100 words</strong>.</p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0;font-size:13px">
@@ -877,7 +877,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Section 3 -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">§ 3 — Your Business Plan</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">§ 3 — Your Business Plan</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <p style="margin-bottom:10px">Explain and discuss your <em>imaginary</em> business plan. <strong>You do not need to cite sources in this section.</strong> All paragraphs: 5–7 sentences, approximately 100 words.</p>
       <table class="gen-table">
@@ -898,7 +898,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Section 4 -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">§ 4 — Peer and AI Feedback on Your Writing</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">§ 4 — Peer and AI Feedback on Your Writing</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <p>This section has three subsections. See the <strong>PAIRR Steps</strong> tab for the full guiding questions for each.</p>
       <div class="alert alert-green" style="margin-top:10px">
@@ -911,7 +911,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Section 5 -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">§ 5 — Use of AI Tools</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">§ 5 — Use of AI Tools</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <div class="alert alert-warn">
         <ul style="padding-left:18px">
@@ -926,7 +926,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- References -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">References</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">References</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <p>Compile your reference list following <strong>LAB style</strong> (Thesis Guidebook §7.4). The template includes three starter sources. You must find additional sources yourself.</p>
       <div class="alert alert-info" style="margin-top:8px">Use <strong>LAB Primo</strong> to find peer-reviewed academic sources. Each paragraph in Section 2 must cite at least one.</div>
@@ -935,7 +935,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Appendices -->
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">Appendices</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">Appendices</div><span class="accord-chev">▾</span></div>
     <div class="accord-body"><p>Read about appendices in the <strong>LAB Thesis Guidebook</strong> and include any required supporting material here (e.g. screenshots, survey questions).</p></div>
   </div>
 
@@ -956,7 +956,7 @@ a.ilink:hover { opacity:.8; }
   <p style="font-size:13.5px;color:var(--muted);margin-bottom:16px">Use this list before you submit your final version to make sure your report is complete.</p>
 
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">📄 Cover and structure</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">📄 Cover and structure</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <ul class="chklist">
         <li>Cover page: business name, your full name, and student ID filled in correctly</li>
@@ -967,7 +967,7 @@ a.ilink:hover { opacity:.8; }
   </div>
 
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">✍️ Writing</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">✍️ Writing</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <ul class="chklist">
         <li>Section 1: Introduction written (350–450 words, includes claim + evidence + structure summary)</li>
@@ -981,7 +981,7 @@ a.ilink:hover { opacity:.8; }
   </div>
 
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">💬 Feedback and reflection (Section 4)</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">💬 Feedback and reflection (Section 4)</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <ul class="chklist">
         <li>Section 4.1: Peer feedback reflection written (2–3 paragraphs, ~100 words each)</li>
@@ -992,7 +992,7 @@ a.ilink:hover { opacity:.8; }
   </div>
 
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">🤖 AI use and disclosure (Section 5)</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">🤖 AI use and disclosure (Section 5)</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <ul class="chklist">
         <li>Section 5: AI use described in 2–3 paragraphs + screenshots of your AI prompts added and labelled</li>
@@ -1003,7 +1003,7 @@ a.ilink:hover { opacity:.8; }
   </div>
 
   <div class="accord">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">📚 References and appendices</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">📚 References and appendices</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <ul class="chklist">
         <li>Reference list compiled using LAB style (Thesis Guidebook §7.4) — includes sources beyond the three starter references in the template</li>
@@ -1037,7 +1037,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- GRADE SCALE REFERENCE -->
   <div class="accord" style="margin-top:20px">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">📊 Grade scale reference (0–5)</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">📊 Grade scale reference (0–5)</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <table class="gen-table">
         <thead><tr><th>Grade</th><th>Label</th><th>What it means</th></tr></thead>
@@ -1055,7 +1055,7 @@ a.ilink:hover { opacity:.8; }
 
   <!-- NOTES ON SECTIONS 4 AND 5 -->
   <div class="accord" style="margin-top:8px">
-    <div class="accord-head" onclick="tog(this.closest('.' + 'accord'))"><div class="accord-title">ℹ️ Sections 4 and 5 — completion requirement</div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">ℹ️ Sections 4 and 5 — completion requirement</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <p>Sections 4 (Feedback and Reflection) and 5 (AI Disclosure) do not carry a grade weight, but they <strong>must be completed</strong> to receive a passing grade. A missing or empty Section 4 or 5 may result in a grade reduction at the instructor's discretion.</p>
     </div>
@@ -1075,6 +1075,15 @@ function openTab(i) {
 
 // ─── ACCORDION ───────────────────────────────────────────────────
 function tog(el) { el.classList.toggle('open'); }
+function handleAccord(e, head) {
+  // Only toggle if the click was not on a link, button, or input inside the header
+  var t = e.target;
+  while (t && t !== head) {
+    if (t.tagName === 'A' || t.tagName === 'BUTTON' || t.tagName === 'INPUT') return;
+    t = t.parentElement;
+  }
+  tog(head.closest('.accord'));
+}
 
 // ─── TRAFFIC LIGHTS ──────────────────────────────────────────────
 const lights = [
