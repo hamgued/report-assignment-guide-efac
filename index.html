@@ -8,23 +8,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@300;400;500;600&display=swap');
 
 :root {
-  --bg: #f5f3ef;
+  --bg: #f5f5f5;
   --surface: #ffffff;
-  --border: #e0dbd2;
-  --text: #1c1a16;
-  --muted: #65625c;
-  --accent: #2d6a4f;
-  --accent-light: #e8f4ee;
-  --accent-text: #1a4731;
+  --border: #d8d8d8;
+  --text: #1a1a1a;
+  --muted: #555555;
+  --accent: #2DBDB6;
+  --accent-light: #e0f7f6;
+  --accent-text: #1a8a85;
   --warn: #92400e;
   --warn-bg: #fef3c7;
   --warn-border: #fcd34d;
   --danger: #991b1b;
   --danger-bg: #fef2f2;
   --danger-border: #fca5a5;
-  --info: #1e40af;
-  --info-bg: #eff6ff;
-  --info-border: #93c5fd;
+  --info: #1a8a85;
+  --info-bg: #e0f7f6;
+  --info-border: #7dd8d4;
   --amber: #b45309;
   --amber-bg: #fef3c7;
   --amber-border: #fbbf24;
@@ -44,13 +44,14 @@ body {
 
 /* HERO */
 .hero {
-  background: var(--accent);
-  color: #fff;
+  background: #ffffff;
+  color: #1a1a1a;
   border-radius: 14px;
   padding: 1.75rem 2rem 1.5rem;
   margin-bottom: 1.25rem;
   position: relative;
   overflow: hidden;
+  border: 2.5px solid #2DBDB6;
 }
 .hero::before {
   content:'';
@@ -60,19 +61,19 @@ body {
   border-radius:50%;
   background:rgba(255,255,255,0.05);
 }
-.hero-tag { font-size:11.5px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; opacity:.65; margin-bottom:7px; }
+.hero-tag { font-size:11.5px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; opacity:.7; margin-bottom:7px; color:#1a8a85; }
 .hero h1 { font-family:'Lora',serif; font-size:clamp(1.3rem,3vw,1.75rem); font-weight:600; line-height:1.2; margin-bottom:8px; }
-.hero-sub { font-size:13.5px; opacity:.82; max-width:520px; line-height:1.6; }
+.hero-sub { font-size:13.5px; opacity:.75; max-width:520px; line-height:1.6; color:#333333; }
 .hero-pills { display:flex; gap:8px; margin-top:1.1rem; flex-wrap:wrap; }
 .pill {
   font-size:12px; font-weight:500; padding:4px 12px;
-  border-radius:20px; background:rgba(255,255,255,0.15);
-  color:#fff; border:1px solid rgba(255,255,255,0.25);
+  border-radius:20px; background:rgba(45,189,182,0.15);
+  color:#1a8a85; border:1px solid rgba(45,189,182,0.4);
 }
 .hero-credit {
-  font-size:11px; opacity:.55; margin-top:1rem; line-height:1.5;
+  font-size:11px; opacity:.65; margin-top:1rem; line-height:1.5; color:#333;
 }
-.hero-credit a { color:rgba(255,255,255,.75); }
+.hero-credit a { color:#1a8a85; }
 
 /* TABS */
 .tabs-nav {
@@ -115,7 +116,7 @@ body {
 .alert-warn  { background:var(--warn-bg);   color:var(--warn);   border-color:var(--warn-border); }
 .alert-danger{ background:var(--danger-bg); color:var(--danger); border-color:var(--danger-border); }
 .alert-info  { background:var(--info-bg);   color:var(--info);   border-color:var(--info-border); }
-.alert-green { background:var(--accent-light); color:var(--accent-text); border-color:var(--accent); }
+.alert-green { background:#e8f5ee; color:#1a4731; border-color:#2d6a4f; }
 
 /* ACCORDION */
 .accord {
@@ -161,8 +162,8 @@ body {
 .wl-table th { background:var(--bg); padding:9px 12px; text-align:left; font-weight:600; border:1px solid var(--border); }
 .wl-table td { padding:9px 12px; border:1px solid var(--border); vertical-align:top; }
 .wl-table tr:nth-child(even) td { background:#faf9f7; }
-.wl-total td { background:var(--accent-light)!important; font-weight:700; color:var(--accent-text); }
-.wl-time { font-weight:700; color:var(--accent-text); white-space:nowrap; }
+.wl-total td { background:#e0f7f6!important; font-weight:700; color:#1a8a85; }
+.wl-time { font-weight:700; color:#1a8a85; white-space:nowrap; }
 
 /* SCENARIO DRAG */
 .sc-pool { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-bottom:16px; }
@@ -259,6 +260,27 @@ cite-ex strong { font-style:normal; }
 
 a.ilink { color:var(--info); text-decoration:underline; }
 a.ilink:hover { opacity:.8; }
+
+/* RUBRIC */
+.rubric-block {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:16px 18px; margin-bottom:10px;
+}
+.rubric-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:10px; }
+.rubric-title { font-size:14px; font-weight:600; margin-bottom:3px; }
+.rubric-weight { font-size:11.5px; font-weight:500; color:var(--muted); margin-left:8px; }
+.rubric-desc { font-size:12.5px; color:var(--muted); line-height:1.5; }
+.rubric-score-display { font-family:'Lora',serif; font-size:2rem; font-weight:600; line-height:1; flex-shrink:0; min-width:32px; text-align:right; }
+.rubric-btns { display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap; }
+.r-btn {
+  width:38px; height:38px; border-radius:8px; border:2px solid var(--border);
+  background:#fff; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:700;
+  cursor:pointer; transition:all .15s; color:var(--text);
+}
+.r-btn:hover { border-color:var(--accent); color:var(--accent); }
+.r-btn-active { background:var(--accent); border-color:var(--accent); color:#fff; }
+.rubric-descriptor { background:var(--bg); border-radius:6px; padding:10px 12px; min-height:38px; }
+
 </style>
 </head>
 <body>
@@ -266,6 +288,7 @@ a.ilink:hover { opacity:.8; }
 
 <!-- HERO -->
 <div class="hero">
+
   <div class="hero-tag">English for Academic Communication &nbsp;·&nbsp; Hamid Guedra</div>
   <h1>Business Plan Report<br>Assignment Guide</h1>
   <p class="hero-sub">Everything you need to understand the assignment, write your report, and submit with confidence.</p>
@@ -288,6 +311,7 @@ a.ilink:hover { opacity:.8; }
   <button class="tab-btn" onclick="openTab(2)">✍️ PAIRR Steps</button>
   <button class="tab-btn" onclick="openTab(3)">📖 Instructions</button>
   <button class="tab-btn" onclick="openTab(4)">✅ Checklist</button>
+  <button class="tab-btn" onclick="openTab(5)">🏅 Rubric</button>
 </nav>
 
 <!-- ═══════════════════════════════════════════════════════
@@ -423,7 +447,7 @@ a.ilink:hover { opacity:.8; }
     <div class="accord-body"><p>Sections 2 and 3 must be complete before the midterm exam. In the exam, you individually write an abstract (a short summary) of your report.</p></div>
   </div>
   <div class="accord" onclick="tog(this)">
-    <div class="accord-head"><div class="ibadge" style="background:var(--accent)">🏁</div><div><div class="accord-title">End of semester — final deadline</div><div class="accord-sub">Submit and present</div></div><span class="accord-chev">▾</span></div>
+    <div class="accord-head"><div class="ibadge" style="background:#2DBDB6">🏁</div><div><div class="accord-title">End of semester — final deadline</div><div class="accord-sub">Submit and present</div></div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
       <p>Finalize your report and give a short presentation based on your work. Upload the final version before the deadline — the submission link closes automatically.</p>
       <div class="alert alert-danger" style="margin-top:10px"><strong>No late submissions.</strong> The submission link closes at the deadline. Plan ahead.</div>
@@ -609,7 +633,7 @@ a.ilink:hover { opacity:.8; }
   <!-- Step 2 -->
   <div class="accord" onclick="tog(this)">
     <div class="accord-head">
-      <div class="ibadge" style="background:var(--accent)">2</div>
+      <div class="ibadge" style="background:#2DBDB6">2</div>
       <div><div class="accord-title">Step 2 — Peer Review</div><div class="accord-sub">In class · Write your reflection in Section 4.1</div></div>
       <span class="accord-chev">▾</span>
     </div>
@@ -991,6 +1015,54 @@ a.ilink:hover { opacity:.8; }
 
 </div><!-- /tab4 -->
 
+
+<!-- ═══════════════════════════════════════════════════════
+     TAB 5 – RUBRIC
+═══════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab5">
+
+  <div class="sec-label">Grading Rubric</div>
+  <p style="font-size:13.5px;color:var(--muted);margin-bottom:6px">Each criterion is scored from 0 to 5. The final grade is a weighted average. Sections 4 and 5 must be completed but are not graded.</p>
+
+  <div class="alert alert-info" style="margin-bottom:16px">
+    <strong>How to use this rubric:</strong> Click a score button (0–5) for each criterion. The weighted grade calculates automatically at the bottom.
+  </div>
+
+  <!-- RUBRIC CRITERIA -->
+  <div id="rubricCriteria"></div>
+
+  <div class="btn-row" style="margin-top:14px">
+    <button class="btn btn-ghost" onclick="resetRubric()">Reset all scores</button>
+  </div>
+
+  <!-- GRADE SCALE REFERENCE -->
+  <div class="accord" onclick="tog(this)" style="margin-top:20px">
+    <div class="accord-head"><div class="accord-title">📊 Grade scale reference (0–5)</div><span class="accord-chev">▾</span></div>
+    <div class="accord-body">
+      <table class="gen-table">
+        <thead><tr><th>Grade</th><th>Label</th><th>What it means</th></tr></thead>
+        <tbody>
+          <tr><td><strong>5</strong></td><td>Excellent</td><td>Exceeds all expectations. Work is accurate, well-structured, and shows strong independent thinking and language use.</td></tr>
+          <tr><td><strong>4</strong></td><td>Good</td><td>Meets all expectations well. Minor gaps or weaknesses, but the overall quality is clearly satisfactory.</td></tr>
+          <tr><td><strong>3</strong></td><td>Satisfactory</td><td>Meets the basic requirements. Some noticeable weaknesses in content, language, or sourcing, but the core task is done.</td></tr>
+          <tr><td><strong>2</strong></td><td>Weak</td><td>Partially meets requirements. Significant gaps in content, sourcing, or language. The task is incomplete or unclear in important areas.</td></tr>
+          <tr><td><strong>1</strong></td><td>Poor</td><td>Does not meet most requirements. Major gaps throughout. Little evidence of understanding the task.</td></tr>
+          <tr><td><strong>0</strong></td><td>Not submitted / Fail</td><td>Section is missing, empty, or completely off-task.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- NOTES ON SECTIONS 4 AND 5 -->
+  <div class="accord" onclick="tog(this)" style="margin-top:8px">
+    <div class="accord-head"><div class="accord-title">ℹ️ Sections 4 and 5 — completion requirement</div><span class="accord-chev">▾</span></div>
+    <div class="accord-body">
+      <p>Sections 4 (Feedback and Reflection) and 5 (AI Disclosure) do not carry a grade weight, but they <strong>must be completed</strong> to receive a passing grade. A missing or empty Section 4 or 5 may result in a grade reduction at the instructor's discretion.</p>
+    </div>
+  </div>
+
+</div><!-- /tab5 -->
+
 </div><!-- /wrapper -->
 
 <script>
@@ -1204,6 +1276,154 @@ function showFb(id,msg,type){ const el=document.getElementById(id); el.textConte
 initSc();
 
 // ─── CHECKLIST: static list, no JS needed ───────────────────────
+
+// ─── RUBRIC ──────────────────────────────────────────────────────
+const criteria = [
+  {
+    id: 'intro',
+    label: '§1 Introduction',
+    weight: 10,
+    desc: 'Does the introduction present a clear overview of the business idea, include a simple argument (claim + evidence), and summarize the report structure?',
+    descriptors: {
+      5: 'Clear, engaging introduction. Strong claim with supporting evidence. Structure summary is complete and well-written. Word count met (350–450 words).',
+      4: 'Good introduction covering all required elements. Minor weaknesses in argument or structure summary. Word count approximately met.',
+      3: 'Introduction is present and covers most elements. Claim or evidence is weak or underdeveloped. Some structural issues.',
+      2: 'Introduction is incomplete or missing key elements (e.g. no argument, no structure summary). Word count significantly off.',
+      1: 'Very little content. Does not function as an academic introduction.',
+      0: 'Section is missing or empty.'
+    }
+  },
+  {
+    id: 'defs',
+    label: '§2 Term Definitions',
+    weight: 30,
+    desc: 'Are all 8 terms defined accurately, in the student\'s own words, with at least one academic source cited per paragraph? Are paragraphs well-structured (5–7 sentences)?',
+    descriptors: {
+      5: 'All 8 terms defined accurately and in academic English. Each paragraph cites at least one credible source correctly. Strong use of author citation patterns. Paragraphs are well-structured (5–7 sentences).',
+      4: 'All or most terms defined well. Most paragraphs cite a source correctly. Minor errors in citation format or paragraph structure.',
+      3: 'Most terms defined adequately. Some paragraphs lack a source or use weak citations. Paragraph structure is inconsistent.',
+      2: 'Several definitions are missing, inaccurate, or too brief. Citations are missing or incorrect in multiple paragraphs.',
+      1: 'Few definitions are present or attempted. Little evidence of source use.',
+      0: 'Section is missing or empty.'
+    }
+  },
+  {
+    id: 'plan',
+    label: '§3 Business Plan',
+    weight: 20,
+    desc: 'Does the business plan cover all 8 subsections with sufficient detail? Are required visuals (logo, table, figure) included and referenced in the text?',
+    descriptors: {
+      5: 'All 8 subsections present and well-developed (5–7 sentences each). Logo, Table 1, and Figure 1 are included, labelled, and referenced in the text. Content is creative, coherent, and convincing.',
+      4: 'All subsections present. Most are well-developed. Visuals included with minor issues (e.g. not referenced in text, or weak labelling).',
+      3: 'All subsections present but some are underdeveloped. At least one required visual missing or not referenced.',
+      2: 'Several subsections missing or too brief. Visuals largely absent or incorrectly presented.',
+      1: 'Very little content. Most subsections missing or empty.',
+      0: 'Section is missing or empty.'
+    }
+  },
+  {
+    id: 'lang',
+    label: 'Language',
+    weight: 15,
+    desc: 'Is the language academic, clear, and grammatically accurate throughout the report? Is vocabulary appropriate for the subject and register?',
+    descriptors: {
+      5: 'Consistently academic tone and register throughout. Grammar, spelling, and punctuation are accurate. Vocabulary is varied and appropriate. Writing is clear and easy to follow.',
+      4: 'Mostly academic and accurate. Some minor grammar or vocabulary errors, but they do not interfere with understanding.',
+      3: 'Generally understandable but with noticeable grammar errors or informal language in places. Academic register is inconsistent.',
+      2: 'Frequent grammar errors or informal language that often makes the text difficult to follow.',
+      1: 'Significant language problems throughout. Very difficult to understand.',
+      0: 'No assessable language content.'
+    }
+  },
+  {
+    id: 'refs',
+    label: 'References',
+    weight: 15,
+    desc: 'Are all sources cited in-text and listed in the reference list? Does the reference list follow LAB style correctly? Are sources appropriate (academic)?',
+    descriptors: {
+      5: 'All in-text citations have a matching reference list entry and vice versa. LAB style applied correctly throughout. Sources are credible and academic. More than the minimum number of sources used.',
+      4: 'Reference list is mostly correct. Minor LAB style errors (e.g. missing retrieval date, small formatting inconsistencies). Sources are appropriate.',
+      3: 'Reference list is present but has several LAB style errors. Some citations in the text do not appear in the list, or vice versa.',
+      2: 'Reference list is incomplete or has major formatting errors. Many citations are missing or incorrect.',
+      1: 'Very few references. Little evidence of LAB style awareness.',
+      0: 'No reference list, or only the three starter references with no additions.'
+    }
+  },
+  {
+    id: 'format',
+    label: 'Formatting & Presentation',
+    weight: 10,
+    desc: 'Is the official Word template used correctly? Are styles applied, visuals labelled, and the document well-presented?',
+    descriptors: {
+      5: 'Official template used correctly throughout. Word styles applied. No manual spacing or hyphens. All visuals labelled and numbered. Document looks professional.',
+      4: 'Template used correctly with minor issues (e.g. one style not applied, one visual unlabelled).',
+      3: 'Template used but with noticeable formatting issues (manual spacing, missing styles, inconsistent numbering).',
+      2: 'Significant formatting problems. Template partially followed or sections restructured.',
+      1: 'Template largely ignored. Poor overall presentation.',
+      0: 'No evidence of template use.'
+    }
+  }
+];
+
+const scores = {};
+
+function initRubric() {
+  const container = document.getElementById('rubricCriteria');
+  container.innerHTML = criteria.map(c => `
+    <div class="rubric-block" id="rb-${c.id}">
+      <div class="rubric-head">
+        <div>
+          <div class="rubric-title">${c.label} <span class="rubric-weight">Weight: ${c.weight}%</span></div>
+          <div class="rubric-desc">${c.desc}</div>
+        </div>
+        <div class="rubric-score-display" id="sd-${c.id}">—</div>
+      </div>
+      <div class="rubric-btns">
+        ${[0,1,2,3,4,5].map(n => `<button class="r-btn" onclick="setScore('${c.id}',${n})" id="rb-${c.id}-${n}">${n}</button>`).join('')}
+      </div>
+      <div class="rubric-descriptor" id="rd-${c.id}">
+        <em style="color:var(--muted);font-size:13px">Select a score to see the descriptor.</em>
+      </div>
+    </div>
+  `).join('');
+  updateGrade();
+}
+
+function setScore(id, score) {
+  scores[id] = score;
+  // Update button states
+  criteria.find(c => c.id === id) && [0,1,2,3,4,5].forEach(n => {
+    const btn = document.getElementById(`rb-${id}-${n}`);
+    btn.classList.toggle('r-btn-active', n === score);
+  });
+  // Update score display
+  document.getElementById(`sd-${id}`).textContent = score;
+  document.getElementById(`sd-${id}`).style.color = scoreColour(score);
+  // Show descriptor
+  const c = criteria.find(c => c.id === id);
+  document.getElementById(`rd-${id}`).innerHTML = `<span style="font-size:13px;color:var(--muted)">${c.descriptors[score]}</span>`;
+  updateGrade();
+}
+
+function scoreColour(s) {
+  return ['#991b1b','#c2410c','#b45309','#1e40af','#1a6b4a','#166534'][s];
+}
+
+function updateGrade() {}
+
+function resetRubric() {
+  Object.keys(scores).forEach(k => delete scores[k]);
+  criteria.forEach(c => {
+    [0,1,2,3,4,5].forEach(n => document.getElementById(`rb-${c.id}-${n}`).classList.remove('r-btn-active'));
+    document.getElementById(`sd-${c.id}`).textContent = '—';
+    document.getElementById(`sd-${c.id}`).style.color = '';
+    document.getElementById(`rd-${c.id}`).innerHTML = '<em style="color:var(--muted);font-size:13px">Select a score to see the descriptor.</em>';
+  });
+  updateGrade();
+}
+
+initRubric();
+
 </script>
 </body>
 </html>
