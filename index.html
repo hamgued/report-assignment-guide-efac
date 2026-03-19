@@ -297,55 +297,41 @@ a.ilink:hover { opacity:.8; }
 
   <div class="sec-label">What is this assignment?</div>
 
-  <div class="card">
-    <div class="card-body">
-      You will write a <strong>Business Plan Report</strong> by yourself. You will choose an imaginary business idea, define key business terms, and write a business plan. You will also give and receive feedback, use an AI tool in class, and reflect on both types of feedback. The whole process runs across the semester.
+  <div class="accord open" onclick="tog(this)">
+    <div class="accord-head">
+      <div class="accord-title">📋 Overview and individual work</div>
+      <span class="accord-chev">▾</span>
     </div>
-  </div>
-
-  <div class="alert alert-info">
-    <strong>Individual work:</strong> This is an individual assignment. You write your own report. You will work with a classmate during the peer feedback session, but all writing must be your own.
+    <div class="accord-body">
+      <p>You will write a <strong>Business Plan Report</strong> by yourself. You will choose an imaginary business idea, define key business terms, and write a business plan. You will also give and receive feedback, use an AI tool in class, and reflect on both types of feedback. The whole process runs across the semester.</p>
+      <div class="alert alert-info" style="margin-top:10px">
+        <strong>Individual work:</strong> This is an individual assignment. You write your own report. You will work with a classmate during the peer feedback session, but all writing must be your own.
+      </div>
+    </div>
   </div>
 
   <!-- Learning goals -->
-  <div class="sec-label" style="margin-top:20px">Learning goals</div>
   <div class="accord" onclick="tog(this)">
     <div class="accord-head">
-      <div class="ibadge" style="background:var(--accent)">✏️</div>
-      <div><div class="accord-title">Writing and research</div></div>
+      <div class="accord-title">🎯 Learning goals</div>
       <span class="accord-chev">▾</span>
     </div>
     <div class="accord-body">
-      <p>Write a structured academic report and learn how academic writing works in English. Search for good academic sources in the library database (LAB Primo). Cite sources correctly using LAB's Thesis Guidebook format.</p>
-    </div>
-  </div>
-  <div class="accord" onclick="tog(this)">
-    <div class="accord-head">
-      <div class="ibadge" style="background:#7c3aed">💬</div>
-      <div><div class="accord-title">Feedback and reflection</div></div>
-      <span class="accord-chev">▾</span>
-    </div>
-    <div class="accord-body">
-      <p>Give and receive peer feedback on a classmate's draft. Use an AI tool (in class, with your instructor) to get feedback on your writing. Compare peer and AI feedback critically and reflect on what you learned.</p>
-    </div>
-  </div>
-  <div class="accord" onclick="tog(this)">
-    <div class="accord-head">
-      <div class="ibadge" style="background:var(--amber)">📚</div>
-      <div><div class="accord-title">Definitions and concepts</div></div>
-      <span class="accord-chev">▾</span>
-    </div>
-    <div class="accord-body">
-      <p>Define 8 key business plan terms using academic sources. Write clear, source-supported definitions in your own words.</p>
+      <p><strong>Writing and research:</strong> Write a structured academic report and learn how academic writing works in English. Search for good academic sources in the library database (LAB Primo). Cite sources correctly using LAB's Thesis Guidebook format.</p>
+      <p><strong>Feedback and reflection:</strong> Give and receive peer feedback on a classmate's draft. Use an AI tool (in class, with your instructor) to get feedback on your writing. Compare peer and AI feedback critically and reflect on what you learned.</p>
+      <p><strong>Definitions and concepts:</strong> Define 8 key business plan terms using academic sources. Write clear, source-supported definitions in your own words.</p>
     </div>
   </div>
 
   <!-- Workload -->
-  <div class="sec-label" style="margin-top:20px">How long will this take?</div>
-  <div class="card">
-    <div class="card-body">
-      <p>The total workload is <strong>60–70 hours</strong>. This is approximately <strong>2.5 ECTS credits</strong>. The time depends on your previous experience with academic writing in English and with digital tools.</p>
-      <table class="wl-table" style="margin-top:14px">
+  <div class="accord" onclick="tog(this)">
+    <div class="accord-head">
+      <div class="accord-title">⏱️ How long will this take? <span style="font-weight:400;color:var(--muted);font-size:12px;margin-left:6px">60–70 hours · 2.5 ECTS credits</span></div>
+      <span class="accord-chev">▾</span>
+    </div>
+    <div class="accord-body">
+      <p style="margin-bottom:10px">The time depends on your previous experience with academic writing in English and with digital tools.</p>
+      <table class="wl-table">
         <thead>
           <tr>
             <th>Assignment part</th>
@@ -395,22 +381,29 @@ a.ilink:hover { opacity:.8; }
   </div>
 
   <!-- Report structure quick view -->
-  <div class="sec-label" style="margin-top:20px">Report structure</div>
-  <div class="alert alert-warn">Use the official Word template. Do not change the section headings or numbering.</div>
-  <table class="gen-table">
-    <thead><tr><th>Section</th><th>Title</th><th>Notes</th></tr></thead>
-    <tbody>
-      <tr><td>Cover</td><td>Title page</td><td>Business name, course, instructor, your name and student ID</td></tr>
-      <tr><td>—</td><td>Abstract</td><td><strong>Leave blank.</strong> You write this in the midterm exam.</td></tr>
-      <tr><td>1</td><td>Introduction</td><td>350–450 words. Overview of your business idea and report structure.</td></tr>
-      <tr><td>2</td><td>Term definitions</td><td>Define all 8 key business plan terms — one paragraph per subsection (2.1–2.8)</td></tr>
-      <tr><td>3</td><td>Your business plan</td><td>8 subsections (value proposition, customer segments, channels, etc.)</td></tr>
-      <tr><td>4</td><td>Feedback</td><td>Peer feedback (4.1), AI feedback (4.2), comparison and reflection (4.3)</td></tr>
-      <tr><td>5</td><td>AI tool use</td><td>Describe all AI tools you used. Required even if use was minimal.</td></tr>
-      <tr><td>—</td><td>References</td><td>Full list following LAB Thesis Guidebook §7.2–7.4</td></tr>
-      <tr><td>—</td><td>Appendices</td><td>Any supporting materials (e.g. screenshots)</td></tr>
-    </tbody>
-  </table>
+  <div class="accord" onclick="tog(this)">
+    <div class="accord-head">
+      <div class="accord-title">📄 Report structure <span style="font-weight:400;color:var(--muted);font-size:12px;margin-left:6px">Cover · §1–5 · References · Appendices</span></div>
+      <span class="accord-chev">▾</span>
+    </div>
+    <div class="accord-body">
+      <div class="alert alert-warn" style="margin-bottom:10px">Use the official Word template. Do not change the section headings or numbering.</div>
+      <table class="gen-table">
+        <thead><tr><th>Section</th><th>Title</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Cover</td><td>Title page</td><td>Business name, course, instructor, your name and student ID</td></tr>
+          <tr><td>—</td><td>Abstract</td><td><strong>Leave blank.</strong> You write this in the midterm exam.</td></tr>
+          <tr><td>1</td><td>Introduction</td><td>350–450 words. Overview of your business idea and report structure.</td></tr>
+          <tr><td>2</td><td>Term definitions</td><td>Define all 8 key business plan terms — one paragraph per subsection (2.1–2.8)</td></tr>
+          <tr><td>3</td><td>Your business plan</td><td>8 subsections (value proposition, customer segments, channels, etc.)</td></tr>
+          <tr><td>4</td><td>Feedback</td><td>Peer feedback (4.1), AI feedback (4.2), comparison and reflection (4.3)</td></tr>
+          <tr><td>5</td><td>AI tool use</td><td>Describe all AI tools you used. Required even if use was minimal.</td></tr>
+          <tr><td>—</td><td>References</td><td>Full list following LAB Thesis Guidebook §7.2–7.4</td></tr>
+          <tr><td>—</td><td>Appendices</td><td>Any supporting materials (e.g. screenshots)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
   <!-- Semester timeline -->
   <div class="sec-label" style="margin-top:20px">Semester timeline</div>
@@ -438,18 +431,18 @@ a.ilink:hover { opacity:.8; }
   </div>
 
   <!-- Submission steps -->
-  <div class="sec-label" style="margin-top:20px">How to submit</div>
-  <div class="card">
-    <div class="card-body">
+  <div class="accord" onclick="tog(this)">
+    <div class="accord-head"><div class="accord-title">📤 How to submit</div><span class="accord-chev">▾</span></div>
+    <div class="accord-body">
       <ol style="padding-left:20px;line-height:2">
         <li>Use the correct Word template. Do not rename sections or change the structure.</li>
         <li>Upload your draft to Turnitin early — it can take several hours to respond.</li>
         <li>Review your Turnitin Similarity Report. If the similarity is high, revise and resubmit.</li>
         <li>Submit your final, complete version before the deadline.</li>
       </ol>
+      <div class="alert alert-danger" style="margin-top:10px"><strong>No late submissions.</strong> The submission link closes at the deadline. Plan ahead.</div>
     </div>
   </div>
-
   <div class="accord" onclick="tog(this)">
     <div class="accord-head"><div class="accord-title">📊 What is Turnitin?</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
@@ -542,9 +535,9 @@ a.ilink:hover { opacity:.8; }
   </div>
 
   <!-- Part C: Scenario activity -->
-  <div class="card" style="margin-top:14px">
-    <div class="card-head">🎯 Part C: Scenario Activity <span style="font-size:12px;font-weight:400;color:var(--muted);margin-left:6px">Drag each card to the correct category, or tap to select then tap a zone.</span></div>
-    <div class="card-body">
+  <div class="accord" onclick="tog(this)">
+    <div class="accord-head"><div class="accord-title">🎯 Part C: Scenario Activity <span style="font-weight:400;color:var(--muted);font-size:12px;margin-left:6px">Drag each card to the correct category, or tap to select then tap a zone</span></div><span class="accord-chev">▾</span></div>
+    <div class="accord-body">
       <div class="sc-pool" id="scPool"></div>
       <div class="dz-row">
         <div>
@@ -565,19 +558,19 @@ a.ilink:hover { opacity:.8; }
   </div>
 
   <!-- Part D: Writing spectrum -->
-  <div class="card" style="margin-top:14px">
-    <div class="card-head">📊 Part D: The Writing Spectrum</div>
-    <div class="card-body">
-      <p style="margin-bottom:12px">How much AI use is too much? Tap each level to explore. For this assignment, stay at <strong>75–100% human</strong>.</p>
+  <div class="accord" onclick="tog(this)">
+    <div class="accord-head"><div class="accord-title">📊 Part D: The Writing Spectrum <span style="font-weight:400;color:var(--muted);font-size:12px;margin-left:6px">Stay at 75–100% human for this assignment</span></div><span class="accord-chev">▾</span></div>
+    <div class="accord-body">
+      <p style="margin-bottom:12px">How much AI use is too much? Tap each level to explore.</p>
       <div class="spec-btns" id="specBtns"></div>
       <div class="spec-detail" id="specDetail"><p style="color:var(--muted);font-size:13.5px;font-style:italic">Select a level above.</p></div>
     </div>
   </div>
 
   <!-- AI tiers -->
-  <div class="card" style="margin-top:14px">
-    <div class="card-head">🤖 Part E: Ethical AI Use Tiers</div>
-    <div class="card-body">
+  <div class="accord" onclick="tog(this)">
+    <div class="accord-head"><div class="accord-title">🤖 Part E: Ethical AI Use Tiers</div><span class="accord-chev">▾</span></div>
+    <div class="accord-body">
       <p style="margin-bottom:12px">These three tiers describe different types of AI use. Know which tier your activity falls into before you start.</p>
       <div class="tier-btns" id="tierBtns">
         <button class="tier-btn" onclick="showTier(0)">✅ Tier 1 — Acceptable</button>
@@ -938,9 +931,9 @@ a.ilink:hover { opacity:.8; }
   <div class="sec-label">Pre-submission checklist</div>
   <p style="font-size:13.5px;color:var(--muted);margin-bottom:16px">Use this list before you submit your final version to make sure your report is complete.</p>
 
-  <div class="card">
-    <div class="card-head">📄 Cover and structure</div>
-    <div class="card-body">
+  <div class="accord open" onclick="tog(this)">
+    <div class="accord-head"><div class="accord-title">📄 Cover and structure</div><span class="accord-chev">▾</span></div>
+    <div class="accord-body">
       <ul class="chklist">
         <li>Cover page: business name, your full name, and student ID filled in correctly</li>
         <li>Abstract left blank — you write this in the midterm exam</li>
@@ -949,9 +942,9 @@ a.ilink:hover { opacity:.8; }
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-head">✍️ Writing</div>
-    <div class="card-body">
+  <div class="accord open" onclick="tog(this)">
+    <div class="accord-head"><div class="accord-title">✍️ Writing</div><span class="accord-chev">▾</span></div>
+    <div class="accord-body">
       <ul class="chklist">
         <li>Section 1: Introduction written (350–450 words, includes claim + evidence + structure summary)</li>
         <li>Section 2: All 8 business plan terms defined (5–7 sentences each, at least one academic source per paragraph)</li>
@@ -963,9 +956,9 @@ a.ilink:hover { opacity:.8; }
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-head">💬 Feedback and reflection (Section 4)</div>
-    <div class="card-body">
+  <div class="accord open" onclick="tog(this)">
+    <div class="accord-head"><div class="accord-title">💬 Feedback and reflection (Section 4)</div><span class="accord-chev">▾</span></div>
+    <div class="accord-body">
       <ul class="chklist">
         <li>Section 4.1: Peer feedback reflection written (2–3 paragraphs, ~100 words each)</li>
         <li>Section 4.2: AI feedback reflection written + screenshots added and labelled (2–3 paragraphs)</li>
@@ -974,9 +967,9 @@ a.ilink:hover { opacity:.8; }
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-head">🤖 AI use and disclosure (Section 5)</div>
-    <div class="card-body">
+  <div class="accord open" onclick="tog(this)">
+    <div class="accord-head"><div class="accord-title">🤖 AI use and disclosure (Section 5)</div><span class="accord-chev">▾</span></div>
+    <div class="accord-body">
       <ul class="chklist">
         <li>Section 5: AI use described in 2–3 paragraphs + screenshots of your AI prompts added and labelled</li>
         <li>AI traffic light image in the template has NOT been deleted</li>
@@ -985,9 +978,9 @@ a.ilink:hover { opacity:.8; }
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-head">📚 References and appendices</div>
-    <div class="card-body">
+  <div class="accord open" onclick="tog(this)">
+    <div class="accord-head"><div class="accord-title">📚 References and appendices</div><span class="accord-chev">▾</span></div>
+    <div class="accord-body">
       <ul class="chklist">
         <li>Reference list compiled using LAB style (Thesis Guidebook §7.4) — includes sources beyond the three starter references in the template</li>
         <li>Every in-text citation appears in the reference list, and every item in the reference list is cited in the text</li>
