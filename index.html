@@ -379,7 +379,7 @@ a.ilink:hover { opacity:.8; }
   <!-- Workload -->
   <div class="accord">
     <div class="accord-head" onclick="handleAccord(event, this)">
-      <div class="accord-title">⏱️ How long will this take? <span style="font-weight:400;color:var(--muted);font-size:12px;margin-left:6px">60–70 hours · 2.5 ECTS credits</span></div>
+      <div class="accord-title">⏱️ How long will this take?</div>
       <span class="accord-chev">▾</span>
     </div>
     <div class="accord-body">
@@ -436,7 +436,7 @@ a.ilink:hover { opacity:.8; }
   <!-- Report structure quick view -->
   <div class="accord">
     <div class="accord-head" onclick="handleAccord(event, this)">
-      <div class="accord-title">📄 Report structure <span style="font-weight:400;color:var(--muted);font-size:12px;margin-left:6px">Cover · §1–5 · References · Appendices</span></div>
+      <div class="accord-title">📄 Report structure</div>
       <span class="accord-chev">▾</span>
     </div>
     <div class="accord-body">
@@ -591,8 +591,9 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Part C: Scenario activity -->
   <div class="accord">
-    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">🎯 Part C: Scenario Activity <span style="font-weight:400;color:var(--muted);font-size:12px;margin-left:6px">Drag each card to the correct category, or tap to select then tap a zone</span></div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">🎯 Part C: Scenario Activity</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
+      <p style="margin-bottom:12px;font-size:14.95px;color:var(--muted)">Drag each card to the correct category, or tap to select then tap a zone.</p>
       <div class="sc-pool" id="scPool"></div>
       <div class="dz-row">
         <div>
@@ -614,9 +615,10 @@ a.ilink:hover { opacity:.8; }
 
   <!-- Part D: Writing spectrum -->
   <div class="accord">
-    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">📊 Part D: The Writing Spectrum <span style="font-weight:400;font-size:12px;margin-left:6px">(Inspired by <a href="https://www.linkedin.com/feed/update/urn:li:activity:7385644512616034304/?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7385644512616034304%2C7385807026507116544%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287385807026507116544%2Curn%3Ali%3Aactivity%3A7385644512616034304%29" target="_blank" style="color:var(--info)">Jim O'Mahony</a> and Ville Arvola, ITK2025)</span></div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">📊 Part D: The Writing Spectrum</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
-      <p style="margin-bottom:12px">How much AI use is too much? Tap each level to explore.</p>
+      <p style="margin-bottom:4px">How much AI use is too much? Tap each level to explore. The labels are a rough guide for reflection — not a precise formula.</p>
+      <p style="margin-bottom:12px;font-size:13px;color:var(--muted)">Inspired by <a href="https://www.linkedin.com/feed/update/urn:li:activity:7385644512616034304/?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7385644512616034304%2C7385807026507116544%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287385807026507116544%2Curn%3Ali%3Aactivity%3A7385644512616034304%29" target="_blank" style="color:var(--info)">Jim O'Mahony</a> and Ville Arvola (ITK2025)</p>
       <div class="spec-btns" id="specBtns"></div>
       <div class="spec-detail" id="specDetail"><p style="color:var(--muted);font-size:13.5px;font-style:italic">Select a level above.</p></div>
     </div>
@@ -624,9 +626,10 @@ a.ilink:hover { opacity:.8; }
 
   <!-- AI tiers -->
   <div class="accord">
-    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">🤖 Part E: Ethical AI Use Tiers <span style="font-weight:400;font-size:12px;margin-left:6px">(Inspired by <a href="https://doi.org/10.1186/s41077-025-00350-6" target="_blank" style="color:var(--info)">Cheng, Calhoun &amp; Reedy 2025</a>)</span></div><span class="accord-chev">▾</span></div>
+    <div class="accord-head" onclick="handleAccord(event, this)"><div class="accord-title">🤖 Part E: Ethical AI Use Tiers</div><span class="accord-chev">▾</span></div>
     <div class="accord-body">
-      <p style="margin-bottom:12px">These three tiers describe different types of AI use. Know which tier your activity falls into before you start.</p>
+      <p style="margin-bottom:4px">These three tiers describe different types of AI use. Know which tier your activity falls into before you start.</p>
+      <p style="margin-bottom:12px;font-size:13px;color:var(--muted)">Inspired by <a href="https://doi.org/10.1186/s41077-025-00350-6" target="_blank" style="color:var(--info)">Cheng, Calhoun &amp; Reedy 2025</a></p>
       <div class="tier-btns" id="tierBtns">
         <button class="tier-btn" onclick="showTier(0)">✅ Tier 1 — Acceptable</button>
         <button class="tier-btn" onclick="showTier(1)">⚠️ Tier 2 — Use with care</button>
@@ -1205,15 +1208,15 @@ const specLevels = [
     def:'Written by you with no significant AI use (except basic proofreading).',
     ctx:'This is the standard in academic writing. Highly recommended for this assignment.',
     prompt:'Proofread for spelling, punctuation, and grammar. List errors as bullet points. Respect my authorial voice. Do not rewrite.' },
-  { label:'75% Human\n25% AI', color:'#65a30d', status:'Acceptable (report usage)', statusOk:true,
+  { label:'Mostly human\nsome AI', color:'#65a30d', status:'Acceptable (report usage)', statusOk:true,
     def:'Written by you with some AI support, such as feedback and basic proofreading.',
     ctx:'Acceptable in this assignment if reported. AI gives feedback; you write all the text.',
     prompt:'Proofread for spelling, punctuation, and grammar. Provide feedback on clarity and coherence. Do not rewrite.' },
-  { label:'50% Human\n50% AI', color:'#ca8a04', status:'Avoid — grey area', statusOk:false,
+  { label:'Substantial\nAI involvement', color:'#ca8a04', status:'Avoid — grey area', statusOk:false,
     def:'Written in collaboration with AI — AI generated ideas, extensive feedback, or large rewrites.',
     ctx:'Generally avoid at university. The line between your work and AI work is unclear.',
     prompt:'Rewrite this text to improve clarity, coherence, and engagement. Maintain the original meaning.' },
-  { label:'25% Human\n75% AI', color:'#ea580c', status:'Academic misconduct', statusOk:false,
+  { label:'Predominantly\nAI-generated', color:'#ea580c', status:'Academic misconduct', statusOk:false,
     def:'Largely written by AI. You checked the content and made some changes.',
     ctx:'Not acceptable for this assignment.',
     prompt:'Generate a complete paragraph about Topic X. Include examples and cite sources.' },
