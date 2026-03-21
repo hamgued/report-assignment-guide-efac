@@ -523,9 +523,12 @@ a.ilink:hover { opacity:.8; }
   <p style="font-size:13.5px;color:var(--muted);margin-bottom:14px">Before you use any AI tool, make sure you understand what is and is not allowed. Work through all three parts below.</p>
 
   <!-- Part A: Traffic lights -->
-  <div class="card">
-    <div class="card-head">🚦 Part A: The AI Traffic Light System <span style="font-weight:400;font-size:12px;margin-left:6px">(<a href="https://arene.fi/wp-content/uploads/PDF/2024/tekoalysuositukset/ARENE%20AI%20english.pdf?_t=1731419903" target="_blank" style="color:var(--info)">Arene AI Traffic Lights</a>)</span></div>
-    <div class="card-body">
+  <div class="accord">
+    <div class="accord-head" onclick="handleAccord(event, this)">
+      <div class="accord-title">🚦 Part A: The AI Traffic Light System <span style="font-weight:400;font-size:12px;margin-left:6px">(<a href="https://arene.fi/wp-content/uploads/PDF/2024/tekoalysuositukset/ARENE%20AI%20english.pdf?_t=1731419903" target="_blank" style="color:var(--info)" onclick="event.stopPropagation()">Arene AI Traffic Lights</a>)</span></div>
+      <span class="accord-chev">▾</span>
+    </div>
+    <div class="accord-body">
       <p style="margin-bottom:12px">Your institution uses a four-colour system to show how AI may be used in each task. Click a colour to learn what it means.</p>
       <div class="tl-btns" id="tlBtns">
         <button class="tl-btn" onclick="showLight(0)">🔵 BLUE</button>
@@ -540,9 +543,12 @@ a.ilink:hover { opacity:.8; }
   </div>
 
   <!-- Part B: This assignment -->
-  <div class="card">
-    <div class="card-head">📌 Part B: What colour is this assignment?</div>
-    <div class="card-body">
+  <div class="accord">
+    <div class="accord-head" onclick="handleAccord(event, this)">
+      <div class="accord-title">📌 Part B: What colour is this assignment?</div>
+      <span class="accord-chev">▾</span>
+    </div>
+    <div class="accord-body">
       <p style="margin-bottom:10px">This assignment is <strong>YELLOW</strong> — you can use AI, but you must report every time you use it.</p>
       <div class="alert alert-green">
         <strong>You may:</strong>
@@ -1065,17 +1071,26 @@ a.ilink:hover { opacity:.8; }
 <div class="tab-panel" id="tab5">
 
   <div class="sec-label">Grading Rubric</div>
-  <p style="font-size:13.5px;color:var(--muted);margin-bottom:6px">Each criterion is scored from 0 to 5. The final grade is a weighted average. Sections 4 and 5 must be completed but are not graded.</p>
 
-  <div class="alert alert-info" style="margin-bottom:16px">
-    <strong>How to use this rubric:</strong> Click a score button (0–5) for each criterion. The weighted grade calculates automatically at the bottom.
-  </div>
+  <div class="accord">
+    <div class="accord-head" onclick="handleAccord(event, this)">
+      <div class="accord-title">📋 Grading Rubric</div>
+      <span class="accord-chev">▾</span>
+    </div>
+    <div class="accord-body">
+      <p style="font-size:13.5px;color:var(--muted);margin-bottom:6px">Each criterion is scored from 0 to 5. The final grade is a weighted average. Sections 4 and 5 must be completed but are not graded.</p>
 
-  <!-- RUBRIC CRITERIA -->
-  <div id="rubricCriteria"></div>
+      <div class="alert alert-info" style="margin-bottom:16px">
+        <strong>How to use this rubric:</strong> Click a score button (0–5) for each criterion. The weighted grade calculates automatically at the bottom.
+      </div>
 
-  <div class="btn-row" style="margin-top:14px">
-    <button class="btn btn-ghost" onclick="resetRubric()">Reset all scores</button>
+      <!-- RUBRIC CRITERIA -->
+      <div id="rubricCriteria"></div>
+
+      <div class="btn-row" style="margin-top:14px">
+        <button class="btn btn-ghost" onclick="resetRubric()">Reset all scores</button>
+      </div>
+    </div>
   </div>
 
   <!-- GRADE SCALE REFERENCE -->
