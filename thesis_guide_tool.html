@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAB Thesis Guidebook – Interactive Learning Tool</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #f5f6f4;
+  --surface:   #ffffff;
+  --surface2:  #f0f2ef;
+  --border:    #dde0db;
+  --teal:      #2ba8a0;
+  --teal-lt:   #e6f6f5;
+  --teal-mid:  #b2dedd;
+  --teal-dk:   #1e7d77;
+  --amber:     #d97706;
+  --amber-lt:  #fef3c7;
+  --slate:     #4a5568;
+  --text:      #1a2230;
+  --muted:     #6b7585;
+  --correct:   #16a34a;
+  --correct-lt:#dcfce7;
+  --wrong:     #dc2626;
+  --wrong-lt:  #fee2e2;
+  --radius:    10px;
+  --radius-sm: 6px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── HEADER ─────────────────────────────────────────── */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+  position: sticky; top: 0; z-index: 100;
+}
+.header-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0.9rem 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.header-left { display: flex; flex-direction: column; gap: 0.08rem; }
+.header-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.header-eyebrow a { color: var(--teal); text-decoration: none; font-weight: 700; }
+.header-eyebrow a:hover { text-decoration: underline; }
+.header-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  color: var(--text);
+  line-height: 1.2;
+}
+.score-pill {
+  background: var(--teal-lt);
+  color: var(--teal-dk);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--teal-mid);
+  white-space: nowrap;
+}
+
+/* ── TABS ────────────────────────────────────────────── */
+.tabs {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tabs-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 1.4rem;
+  display: flex;
+}
+.tab {
+  padding: 0.72rem 1.1rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.18s;
+  background: none;
+  border-top: none; border-left: none; border-right: none;
+}
+.tab:hover { color: var(--teal); background: var(--teal-lt); }
+.tab.active { color: var(--teal-dk); border-bottom-color: var(--teal); font-weight: 600; }
+
+/* ── MAIN ────────────────────────────────────────────── */
+main { max-width: 820px; margin: 0 auto; padding: 2rem 1.4rem 3rem; }
+.section { display: none; }
+.section.active { display: block; animation: fadeUp 0.25s ease; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+
+/* ── SECTION HEADER ──────────────────────────────────── */
+.section-header { margin-bottom: 1.8rem; }
+.section-label {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.4rem;
+}
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.85rem;
+  line-height: 1.2;
+  color: var(--text);
+}
+.section-desc { margin-top: 0.5rem; color: var(--muted); font-size: 0.9rem; }
+
+/* ── TOC / OVERVIEW ──────────────────────────────────── */
+.toc-hero {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.7rem 1.3rem;
+  margin-bottom: 1.5rem;
+}
+.toc-hero-title { font-family: 'DM Serif Display', serif; font-size: 1.45rem; margin-bottom: 0.3rem; }
+.toc-hero-sub { color: var(--muted); font-size: 0.87rem; margin-bottom: 0.9rem; }
+.toc-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.toc-pill {
+  background: var(--teal-lt);
+  color: var(--teal-dk);
+  border: 1px solid var(--teal-mid);
+  font-size: 0.73rem;
+  font-weight: 500;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+}
+
+.toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+@media(max-width:560px){ .toc-grid { grid-template-columns: 1fr; } }
+
+.toc-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.05rem 1.15rem;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  transition: border-color 0.18s, box-shadow 0.18s, transform 0.15s;
+  text-align: left;
+  width: 100%;
+}
+.toc-card:hover {
+  border-color: var(--teal);
+  box-shadow: 0 2px 14px rgba(43,168,160,0.11);
+  transform: translateY(-1px);
+}
+.toc-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--teal-dk);
+  background: var(--teal-lt);
+  border-radius: 6px;
+  padding: 0.22rem 0.48rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.toc-card-body h3 { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.18rem; }
+.toc-card-body p { font-size: 0.78rem; color: var(--muted); line-height: 1.4; }
+.toc-tag {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 0.14rem 0.48rem;
+  border-radius: 999px;
+  margin-top: 0.4rem;
+}
+.toc-tag.study    { background: #e0f2fe; color: #0369a1; }
+.toc-tag.practice { background: var(--amber-lt); color: var(--amber); }
+.toc-tag.game     { background: #f3e8ff; color: #7c3aed; }
+
+/* ── RULE CARD ───────────────────────────────────────── */
+.rule-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--teal);
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.8rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.rule-card.blue   { border-left-color: #3b82f6; }
+.rule-card.amber  { border-left-color: var(--amber); }
+.rule-card.purple { border-left-color: #7c3aed; }
+.rule-card h3 {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--teal-dk);
+  margin-bottom: 0.4rem;
+}
+.rule-card.blue h3   { color: #2563eb; }
+.rule-card.amber h3  { color: var(--amber); }
+.rule-card.purple h3 { color: #7c3aed; }
+.rule-card p { font-size: 0.87rem; line-height: 1.65; color: var(--text); }
+.rule-card code {
+  background: var(--surface2);
+  color: var(--teal-dk);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.79rem;
+  padding: 0.1rem 0.38rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+.highlight { color: var(--teal-dk); font-weight: 600; }
+
+/* ── QUIZ ────────────────────────────────────────────── */
+.quiz-progress { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.progress-bar { flex: 1; height: 6px; background: var(--border); border-radius: 999px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--teal); transition: width 0.4s ease; border-radius: 999px; }
+.progress-text { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); white-space: nowrap; }
+
+.question-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+}
+.q-category {
+  display: inline-block;
+  font-size: 0.67rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--teal-dk);
+  background: var(--teal-lt);
+  border-radius: 999px;
+  padding: 0.18rem 0.6rem;
+  margin-bottom: 0.8rem;
+}
+.q-text { font-size: 0.98rem; font-weight: 500; line-height: 1.55; color: var(--text); margin-bottom: 1.1rem; }
+.options { display: flex; flex-direction: column; gap: 0.45rem; }
+.option {
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  padding: 0.7rem 0.95rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--text);
+  text-align: left;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+.option:hover:not(:disabled) { border-color: var(--teal); background: var(--teal-lt); color: var(--teal-dk); }
+.option.correct { border-color: var(--correct); background: var(--correct-lt); color: var(--correct); font-weight: 500; }
+.option.wrong   { border-color: var(--wrong);   background: var(--wrong-lt);   color: var(--wrong); }
+.option:disabled { cursor: default; }
+
+.feedback {
+  margin-top: 0.85rem;
+  padding: 0.7rem 0.95rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.83rem;
+  line-height: 1.5;
+  display: none;
+}
+.feedback.show { display: block; animation: fadeUp 0.2s; }
+.feedback.correct-fb { background: var(--correct-lt); border: 1px solid #86efac; color: #166534; }
+.feedback.wrong-fb   { background: var(--wrong-lt);   border: 1px solid #fca5a5; color: #991b1b; }
+
+/* ── BUTTONS ─────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  padding: 0.58rem 1.35rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: all 0.15s;
+  margin-top: 0.85rem;
+}
+.btn:hover { background: var(--teal-dk); transform: translateY(-1px); box-shadow: 0 3px 10px rgba(43,168,160,0.22); }
+.btn:disabled { opacity: 0.4; cursor: default; transform: none; box-shadow: none; }
+.btn.ghost {
+  background: transparent;
+  color: var(--teal-dk);
+  border: 1.5px solid var(--teal-mid);
+}
+.btn.ghost:hover { background: var(--teal-lt); box-shadow: none; }
+
+/* ── FILL-IN ─────────────────────────────────────────── */
+.fill-text { font-size: 0.92rem; line-height: 2.1; }
+.fill-blank {
+  display: inline-block;
+  border: none;
+  border-bottom: 2px solid var(--teal);
+  min-width: 78px;
+  padding: 0 4px 1px;
+  background: transparent;
+  color: var(--teal-dk);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.84rem;
+  outline: none;
+  text-align: center;
+  transition: border-color 0.15s;
+}
+.fill-blank:focus { border-bottom-color: var(--teal-dk); }
+.fill-blank.correct-fill { border-bottom-color: var(--correct); color: var(--correct); }
+.fill-blank.wrong-fill   { border-bottom-color: var(--wrong);   color: var(--wrong); }
+
+/* ── DRAG & DROP ─────────────────────────────────────── */
+.drag-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.85rem;
+  background: var(--surface);
+  border: 2px dashed var(--teal-mid);
+  border-radius: var(--radius);
+  min-height: 3rem;
+  margin-bottom: 0.9rem;
+}
+.drag-item {
+  background: var(--teal-lt);
+  border: 1px solid var(--teal-mid);
+  color: var(--teal-dk);
+  padding: 0.32rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: grab;
+  user-select: none;
+  transition: all 0.15s;
+}
+.drag-item:hover { background: var(--teal-mid); }
+.drag-item.dragging { opacity: 0.35; cursor: grabbing; }
+.drop-zone {
+  background: var(--surface2);
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.75rem;
+  margin-bottom: 0.4rem;
+  min-height: 2.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  transition: border-color 0.15s, background 0.15s;
+}
+.drop-zone.over { border-color: var(--teal); background: var(--teal-lt); }
+
+/* ── RESULTS ─────────────────────────────────────────── */
+.result-screen { text-align: center; padding: 3rem 1rem; }
+.result-score { font-family: 'DM Serif Display', serif; font-size: 5rem; color: var(--teal); line-height: 1; margin-bottom: 0.3rem; }
+.result-label { font-size: 0.77rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 1.2rem; }
+.result-msg { font-size: 0.98rem; color: var(--text); margin-bottom: 2rem; line-height: 1.6; max-width: 400px; margin-left: auto; margin-right: auto; }
+
+/* ── REF BUILDER ─────────────────────────────────────── */
+.ref-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; margin-bottom: 1rem; }
+@media(max-width:520px){ .ref-fields { grid-template-columns: 1fr; } }
+.ref-field label { display: block; font-size: 0.67rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.26rem; }
+.ref-field input, .ref-field select {
+  width: 100%;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  padding: 0.48rem 0.72rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.84rem;
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.ref-field input:focus, .ref-field select:focus { border-color: var(--teal); }
+.ref-output-label { font-size: 0.67rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 0.38rem; }
+.ref-output {
+  background: var(--teal-lt);
+  border: 1px solid var(--teal-mid);
+  padding: 0.95rem 1.1rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.81rem;
+  line-height: 1.75;
+  color: var(--teal-dk);
+  border-radius: var(--radius-sm);
+  min-height: 3rem;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* ── UTILS ───────────────────────────────────────────── */
+.divider { height: 1px; background: var(--border); margin: 1.4rem 0; }
+.sub-heading { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--text); margin-bottom: 0.45rem; }
+.sub-desc { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.85rem; }
+.ref-example-entry:hover { background: var(--teal-lt); }
+
+/* ── FOOTER ──────────────────────────────────────────── */
+footer {
+  text-align: center;
+  padding: 1.6rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.76rem;
+  color: var(--muted);
+  margin-top: 2rem;
+  background: var(--surface);
+}
+footer a { color: var(--teal-dk); text-decoration: none; font-weight: 500; }
+footer a:hover { text-decoration: underline; }
+/* ── TOOLTIPS ────────────────────────────────────────── */
+.tip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  background: var(--teal-lt);
+  color: var(--teal-dk);
+  border: 1px solid var(--teal-mid);
+  border-radius: 50%;
+  font-size: 0.62rem;
+  font-weight: 700;
+  cursor: help;
+  flex-shrink: 0;
+  vertical-align: middle;
+  margin-left: 0.35rem;
+  top: -1px;
+}
+.tip .tip-box {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: #f5f6f4;
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius-sm);
+  width: 220px;
+  z-index: 200;
+  pointer-events: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+}
+.tip .tip-box::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--text);
+}
+.tip:hover .tip-box { display: block; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="header-eyebrow">LAB University of Applied Sciences &middot; <a href="https://www.linkedin.com/in/hagu1/" target="_blank">Hamid Guedra</a></div>
+      <div class="header-title">Thesis Guidebook — Interactive Learning Tool</div>
+    </div>
+    <div class="score-pill" id="scoreBadge">Score: 0 / 145 pts</div>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="tabs-inner">
+  <button class="tab active" onclick="showSection('overview',this)">Overview</button>
+  <button class="tab" onclick="showSection('style',this)">Writing Style</button>
+  <button class="tab" onclick="showSection('intext',this)">In-Text Refs</button>
+  <button class="tab" onclick="showSection('reflist',this)">Ref List</button>
+  <button class="tab" onclick="showSection('builder',this)">Ref Builder</button>
+  <button class="tab" onclick="showSection('quiz',this)">Quiz</button>
+  </div>
+</div>
+
+<main>
+
+<!-- ═══════════════════════════ OVERVIEW / TOC -->
+<div class="section active" id="section-overview">
+  <div class="toc-hero">
+    <div class="toc-hero-title">Bachelor's Thesis Guidebook</div>
+    <div class="toc-hero-sub">LAB University of Applied Sciences — August 2025 edition. Work through each module in sequence, or click any card to jump straight to it.</div>
+    <div class="toc-pills">
+      <span class="toc-pill">Academic writing</span>
+      <span class="toc-pill">In-text references</span>
+      <span class="toc-pill">References list</span>
+      <span class="toc-pill">Report structure</span>
+      <span class="toc-pill">Interactive exercises</span>
+    </div>
+  </div>
+
+  <div class="toc-grid">
+    <button class="toc-card" onclick="goTo('style')">
+      <div class="toc-num">02</div>
+      <div class="toc-card-body">
+        <h3>Writing Style</h3>
+        <p>Academic tone, paragraph rules, lists, quotations, and illustrations.</p>
+        <span class="toc-tag study">Study + Practice</span>
+      </div>
+    </button>
+    <button class="toc-card" onclick="goTo('intext')">
+      <div class="toc-num">04</div>
+      <div class="toc-card-body">
+        <h3>In-Text References</h3>
+        <p>Parenthetical, narrative, secondary, multi-author, act citations.</p>
+        <span class="toc-tag practice">Spot the Error</span>
+      </div>
+    </button>
+    <button class="toc-card" onclick="goTo('reflist')">
+      <div class="toc-num">05</div>
+      <div class="toc-card-body">
+        <h3>Reference List</h3>
+        <p>Format entries for books, articles, web pages, acts, theses, and more.</p>
+        <span class="toc-tag study">Study</span>
+      </div>
+    </button>
+    <button class="toc-card" onclick="goTo('builder')">
+      <div class="toc-num">07</div>
+      <div class="toc-card-body">
+        <h3>Reference Builder</h3>
+        <p>Fill in source details and get a correctly formatted reference entry.</p>
+        <span class="toc-tag practice">Interactive Tool</span>
+      </div>
+    </button>
+    <button class="toc-card" onclick="goTo('quiz')">
+      <div class="toc-num">06</div>
+      <div class="toc-card-body">
+        <h3>Knowledge Quiz</h3>
+        <p>20 randomised multiple-choice questions with instant feedback.</p>
+        <span class="toc-tag game">Quiz · 20 questions</span>
+      </div>
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ WRITING STYLE -->
+<div class="section" id="section-style">
+  <div class="section-header">
+    <div class="section-label">Module 02</div>
+    <h1 class="section-title">Writing Style</h1>
+    <p class="section-desc">Academic writing at LAB must be clear, factual, and consistent.</p>
+  </div>
+
+  <div class="rule-card">
+    <h3>Language Quality</h3>
+    <p>The language must be <span class="highlight">easy to read, clear, concrete, and consistent</span>. Avoid spoken-language expressions. Use professional vocabulary of your field. Prefer direct constructions — e.g., <code>is evaluated</code> over <code>evaluation is carried out</code>. Avoid vague phrases like <code>within the framework of</code>.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-top:0.9rem;">
+      <div style="background:var(--wrong-lt);border:1px solid #fca5a5;border-radius:var(--radius-sm);padding:0.6rem 0.8rem;">
+        <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--wrong);margin-bottom:0.3rem;">✗ Avoid</div>
+        <p style="font-size:0.82rem;line-height:1.5;color:#7f1d1d;">An evaluation of the results was carried out by the research team within the framework of the project.</p>
+      </div>
+      <div style="background:var(--correct-lt);border:1px solid #86efac;border-radius:var(--radius-sm);padding:0.6rem 0.8rem;">
+        <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--correct);margin-bottom:0.3rem;">✓ Prefer</div>
+        <p style="font-size:0.82rem;line-height:1.5;color:#14532d;">The research team evaluated the results.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule-card blue">
+    <h3>Paragraph &amp; Chapter Rules</h3>
+    <p>Text must progress consistently sentence-to-sentence and paragraph-to-paragraph. <span class="highlight">Each chapter must contain at least two paragraphs</span>, and <span class="highlight">each paragraph must contain at least two sentences.</span></p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-top:0.9rem;">
+      <div style="background:var(--wrong-lt);border:1px solid #fca5a5;border-radius:var(--radius-sm);padding:0.6rem 0.8rem;">
+        <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--wrong);margin-bottom:0.3rem;">✗ Avoid</div>
+        <p style="font-size:0.82rem;line-height:1.5;color:#7f1d1d;"><strong>3 Customer Satisfaction</strong><br>Customer satisfaction is important.</p>
+        <p style="font-size:0.75rem;color:#991b1b;margin-top:0.4rem;">One paragraph, one sentence — invalid.</p>
+      </div>
+      <div style="background:var(--correct-lt);border:1px solid #86efac;border-radius:var(--radius-sm);padding:0.6rem 0.8rem;">
+        <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--correct);margin-bottom:0.3rem;">✓ Prefer</div>
+        <p style="font-size:0.82rem;line-height:1.5;color:#14532d;"><strong>3 Customer Satisfaction</strong><br>Customer satisfaction measures how well a company meets expectations. It is a key indicator of long-term business success.<br><br>Several factors influence satisfaction, including product quality and service speed. These are examined in the following sections.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule-card amber">
+    <h3>Paraphrasing vs. Quoting</h3>
+    <p>Paraphrasing shows you understood the source. Short direct quotations inside a sentence are typed in <em>italics</em>. Long direct quotations use the <code>LAB Citation</code> style, separated by blank lines before and after. Translated quotations are not italicised — reference as <code>(Author Year, author's translation)</code>.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-top:0.9rem;">
+      <div style="background:var(--wrong-lt);border:1px solid #fca5a5;border-radius:var(--radius-sm);padding:0.6rem 0.8rem;">
+        <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--wrong);margin-bottom:0.3rem;">✗ Avoid — copy-pasting</div>
+        <p style="font-size:0.82rem;line-height:1.5;color:#7f1d1d;"><em>Leadership is the process of influencing others to understand and agree about what needs to be done and how to do it.</em> (Yukl 2013, 7.)</p>
+        <p style="font-size:0.75rem;color:#991b1b;margin-top:0.4rem;">Overuse of direct quotation adds no analysis.</p>
+      </div>
+      <div style="background:var(--correct-lt);border:1px solid #86efac;border-radius:var(--radius-sm);padding:0.6rem 0.8rem;">
+        <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--correct);margin-bottom:0.3rem;">✓ Prefer — paraphrase</div>
+        <p style="font-size:0.82rem;line-height:1.5;color:#14532d;">According to Yukl (2013, 7), leadership involves guiding others toward a shared understanding of goals and the methods required to achieve them.</p>
+      </div>
+    </div>
+    <div style="margin-top:0.7rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.6rem 0.8rem;">
+      <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#2563eb;margin-bottom:0.3rem;">Short in-sentence quotation (italics)</div>
+      <p style="font-size:0.82rem;line-height:1.5;">Yukl (2013, 7) defines leadership as <em>the process of influencing others to understand and agree.</em></p>
+    </div>
+    <div style="margin-top:0.55rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.6rem 0.8rem;">
+      <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#7c3aed;margin-bottom:0.3rem;">Translated quotation (no italics)</div>
+      <p style="font-size:0.82rem;line-height:1.5;">Leadership is the process of influencing others toward shared goals. (Yukl 2013, 7, author's translation.)</p>
+    </div>
+  </div>
+
+  <div class="rule-card purple">
+    <h3>Lists</h3>
+    <p>Lists must have an introductory sentence or phrase. <span class="highlight">No comma after bullets.</span> Bullets not full sentences → start lowercase, full stop after last bullet only. Bullets that are full sentences → capital letter + full stop each. An entire chapter cannot consist of lists only.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-top:0.9rem;">
+      <div style="background:var(--wrong-lt);border:1px solid #fca5a5;border-radius:var(--radius-sm);padding:0.6rem 0.8rem;">
+        <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--wrong);margin-bottom:0.3rem;">✗ Avoid</div>
+        <p style="font-size:0.82rem;line-height:1.8;color:#7f1d1d;">The system has several features:<br>
+        • Fast processing,<br>
+        • Secure login,<br>
+        • Easy export.</p>
+        <p style="font-size:0.75rem;color:#991b1b;margin-top:0.4rem;">Commas after bullets — incorrect.</p>
+      </div>
+      <div style="background:var(--correct-lt);border:1px solid #86efac;border-radius:var(--radius-sm);padding:0.6rem 0.8rem;">
+        <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--correct);margin-bottom:0.3rem;">✓ Prefer</div>
+        <p style="font-size:0.82rem;line-height:1.8;color:#14532d;">The system has several features:<br>
+        • fast processing<br>
+        • secure login<br>
+        • easy export.</p>
+        <p style="font-size:0.75rem;color:#166534;margin-top:0.4rem;">No commas. Lowercase start. Full stop after last bullet only.</p>
+      </div>
+    </div>
+    <div style="margin-top:0.6rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.6rem 0.8rem;">
+      <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#7c3aed;margin-bottom:0.3rem;">✓ Full-sentence bullets</div>
+      <p style="font-size:0.82rem;line-height:1.8;">The following stages take place in forming groups:<br>
+      • First, members who do not know each other are overly courteous.<br>
+      • Next, conflicts arise and members begin to test each other.<br>
+      • In the last stage, the situation stabilises and the group is ready to work productively.</p>
+    </div>
+  </div>
+
+  <div class="rule-card">
+    <h3>Illustrations — Images, Figures, Tables</h3>
+    <p>All illustrations are left-aligned and numbered consecutively. Figure/image captions go <span class="highlight">below</span>; table captions go <span class="highlight">above</span>. Style: <code>LAB Figure Title</code>. Captions are not complete sentences. Reference every illustration by number in the text before it appears. Must fit on one page with caption — otherwise place in appendices.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-top:0.9rem;">
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.7rem 0.85rem;">
+        <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal-dk);margin-bottom:0.5rem;">Figure caption — below</div>
+        <div style="background:var(--border);border-radius:4px;height:52px;display:flex;align-items:center;justify-content:center;margin-bottom:0.45rem;">
+          <span style="font-size:0.75rem;color:var(--muted);">[ chart / diagram ]</span>
+        </div>
+        <p style="font-size:0.8rem;color:var(--text);">Figure 1. Sales volume by quarter (Smith 2022)</p>
+        <p style="font-size:0.72rem;color:var(--muted);margin-top:0.3rem;">Caption is below the figure. Not a complete sentence. Source in parentheses.</p>
+      </div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.7rem 0.85rem;">
+        <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal-dk);margin-bottom:0.5rem;">Table caption — above</div>
+        <p style="font-size:0.8rem;color:var(--text);margin-bottom:0.45rem;">Table 1. Annual revenue figures (Jones 2021)</p>
+        <div style="background:var(--border);border-radius:4px;height:52px;display:flex;align-items:center;justify-content:center;">
+          <span style="font-size:0.75rem;color:var(--muted);">[ table data ]</span>
+        </div>
+        <p style="font-size:0.72rem;color:var(--muted);margin-top:0.35rem;">Caption is above the table. Not a complete sentence.</p>
+      </div>
+    </div>
+    <div style="margin-top:0.6rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.6rem 0.8rem;">
+      <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal-dk);margin-bottom:0.3rem;">In-text reference before the illustration</div>
+      <p style="font-size:0.82rem;line-height:1.5;">Customer satisfaction scores varied significantly across regions, as shown in Figure 1.</p>
+      <p style="font-size:0.72rem;color:var(--muted);margin-top:0.25rem;">Always refer to the illustration by number in the text before it appears.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════ IN-TEXT REFS -->
+<div class="section" id="section-intext">
+  <div class="section-header">
+    <div class="section-label">Module 04</div>
+    <h1 class="section-title">In-Text References</h1>
+    <p class="section-desc">Master the rules for citing sources within your thesis text.</p>
+  </div>
+
+  <div class="rule-card">
+    <h3>Parenthetical — Single Sentence <span class="tip">?<span class="tip-box">The reference applies to one sentence only. The full stop ends the sentence after the closing bracket.</span></span></h3>
+    <p>Full stop goes <span class="highlight">outside</span> the closing bracket.<br>
+    <code>Good management helps employees develop competence (Ekholm &amp; Salmenkangas 2015, 35–36).</code></p>
+  </div>
+  <div class="rule-card blue">
+    <h3>Parenthetical — Multiple Sentences / Paragraph <span class="tip">?<span class="tip-box">When the reference covers more than one sentence, the full stop moves inside the bracket to signal the wider scope of the citation.</span></span></h3>
+    <p>Full stop goes <span class="highlight">inside</span> the brackets.<br><code>(Tuomi-Sorjonen 2013, 53.)</code></p>
+    <div style="margin-top:0.7rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.6rem 0.8rem;">
+      <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#2563eb;margin-bottom:0.35rem;">Example — two sentences paraphrased from one source</div>
+      <p style="font-size:0.82rem;line-height:1.6;">Value-added tax included in representation costs is not deductible. Representation expenses are costs that aim to create new business relationships, maintain existing ones, or otherwise promote business. (Tuomi-Sorjonen 2013, 53.)</p>
+      <p style="font-size:0.72rem;color:var(--muted);margin-top:0.35rem;">The reference covers both sentences, so the full stop goes inside the closing bracket.</p>
+    </div>
+  </div>
+  <div class="rule-card amber">
+    <h3>Narrative Reference <span class="tip">?<span class="tip-box">The author's name is woven into the sentence as its subject. The year and page go in brackets directly after the name — not at the end of the sentence.</span></span></h3>
+    <p>Author name in the sentence; year and page in brackets immediately after.<br>
+    <code>Myers and Kassing (2009, 72) claim that…</code><br>
+    <code>According to Myers and Kassing (2009, 72), …</code><br>
+    <code>Singh et al. (2020) emphasize that…</code></p>
+  </div>
+  <div class="rule-card purple">
+    <h3>Multiple Sources in One Reference <span class="tip">?<span class="tip-box">Listing sources chronologically shows the development of research over time. Separate each source with a semicolon inside the same pair of brackets.</span></span></h3>
+    <p>List in <span class="highlight">chronological order</span>, separated by <span class="highlight">semicolons</span>.<br>
+    <code>(Siukosaari 2015, 205; Ojanen 2016, 18; Kuutti 2017, 102.)</code></p>
+  </div>
+  <div class="rule-card">
+    <h3>Two Authors <span class="tip">?<span class="tip-box">Use an ampersand (&) between two authors in both in-text references and in the references list. Never use "and".</span></span></h3>
+    <p>Use an ampersand: <code>(Chang &amp; Nguyen 2011, 13.)</code></p>
+  </div>
+  <div class="rule-card blue">
+    <h3>Three or More Authors <span class="tip">?<span class="tip-box">Only the first-listed author is named in the in-text reference. "et al." is Latin for "and others". Note: et al. is NOT permitted in the references list — all authors must be named there.</span></span></h3>
+    <p>First author only + <code>et al.</code>: <code>(Jones et al. 2009, 43–45.)</code></p>
+  </div>
+  <div class="rule-card amber">
+    <h3>Secondary Sources <span class="tip">?<span class="tip-box">A secondary source is one you read that quotes or cites the original (primary) source. Always try to find the primary source first. Only the secondary source appears in the references list.</span></span></h3>
+    <p>Use only when primary source is unavailable.<br>
+    <code>(Robson 1995, according to Hirsjärvi et al. 2009, 134.)</code><br>
+    Only the secondary source goes in the references list.</p>
+  </div>
+  <div class="rule-card purple">
+    <h3>Acts and Decrees <span class="tip">?<span class="tip-box">Include the official name of the act, its code number, the year, and the relevant section. No page numbers are used for legislative sources.</span></span></h3>
+    <p><code>(Biobank Act 688/2012, Section 2.)</code></p>
+  </div>
+  <div class="rule-card">
+    <h3>No Author Found <span class="tip">?<span class="tip-box">If no individual author is named, use the title of the publication. For web pages without an author, use the name of the organisation responsible for the site.</span></span></h3>
+    <p>Use publication title: <code>(Travel Guide to the Galaxy 2012, 14.)</code><br>
+    Web page — use publishing body + year: <code>(Posti Group Oyj 2016)</code></p>
+  </div>
+  <div class="rule-card blue">
+    <h3>Same Author, Same Year <span class="tip">?<span class="tip-box">Add lowercase letters (a, b, c…) immediately after the year whenever the same author has multiple works published in the same year. Use the same letters in both the in-text reference and the references list.</span></span></h3>
+    <p>Add lowercase letters: <code>(Nguyen 2016a, 23; Nguyen 2016b, 35.)</code></p>
+  </div>
+
+  <div class="divider"></div>
+  <div class="sub-heading">Spot the Error</div>
+  <div class="sub-desc">Each reference below contains one error. Click to identify it.</div>
+  <div id="spoterrContainer"></div>
+</div>
+
+<!-- ═══════════════════════════ REF LIST -->
+<div class="section" id="section-reflist">
+  <div class="section-header">
+    <div class="section-label">Module 05</div>
+    <h1 class="section-title">The References List</h1>
+    <p class="section-desc">How to format entries for each source type.</p>
+  </div>
+  <div class="rule-card">
+    <h3>General Rules <span class="tip">?<span class="tip-box">The references list is ordered A–Z by the first author's surname. Every source cited in the text must appear, and no source may appear unless it was actually cited.</span></span></h3>
+    <p>Alphabetical order A–Z. All sources used must appear; no unused sources. Authors listed as <span class="highlight">Surname, I.</span> All authors named — <code>et al.</code> is prohibited in the references list.</p>
+  </div>
+  <div class="rule-card blue">
+    <h3>Printed Book <span class="tip">?<span class="tip-box">Include edition information if it is not the first edition. If the place of publication or publisher is missing from the source, simply omit that element.</span></span></h3>
+    <p><code>Surname, I. Year. Title. Place: Publisher.</code><br><br>
+    Brynjolfsson, E. &amp; McAfee, A. 2014. The Second Machine Age. New York: W. W. Norton.</p>
+  </div>
+  <div class="rule-card amber">
+    <h3>Journal / Magazine Article <span class="tip">?<span class="tip-box">For academic journals, include the volume and issue number (e.g. Vol. 13 (8)). For newspaper articles, include the full date and page number instead.</span></span></h3>
+    <p><code>Surname, I. Year. Article title. Journal Name, pages.</code><br><br>
+    Lepore, J. 2020. All the King's Data. The New Yorker, August 3 &amp; 10/2020, 18–24.</p>
+  </div>
+  <div class="rule-card purple">
+    <h3>Digital Source <span class="tip">?<span class="tip-box">Always include the retrieval date — web content can change or disappear. If access requires a login or payment, write "Limited availability at" instead of "Available at". No full stop after the URL.</span></span></h3>
+    <p><code>Surname, I. Year. Title. Publisher. Retrieved on [date]. Available at [URL]</code><br>
+    No full stop after the web address. Always include retrieval date.</p>
+  </div>
+  <div class="rule-card">
+    <h3>Web Page — No Author <span class="tip">?<span class="tip-box">When no year of publication is shown on the page, omit the year entirely — do not write "n.d." or "no date". The organisation name or page title acts as the author.</span></span></h3>
+    <p>Use the organisation name or page title.<br>
+    Finnish Nurses Association. Professional Ethics and Collegiality. Retrieved on 12 August 2020. Available at https://…</p>
+  </div>
+  <div class="rule-card blue">
+    <h3>Act / Decree <span class="tip">?<span class="tip-box">The minimal entry is just the name and code. You may optionally add the source database and retrieval information for reader convenience.</span></span></h3>
+    <p><code>Name of Act Code/Year.</code><br>Biobank Act 688/2012.</p>
+  </div>
+  <div class="rule-card amber">
+    <h3>Interview (Background Research) <span class="tip">?<span class="tip-box">Only background research interviews are listed here. Interviews conducted to gather empirical research data are kept anonymous and are never included in the references list.</span></span></h3>
+    <p>Green, M. 2022. Managing Director. DuraPipes Ltd. Interview on 5 February 2022.<br>
+    <em style="font-size:0.81rem;color:var(--muted);">Empirical data interviews are NOT listed — they are anonymous.</em></p>
+  </div>
+  <div class="rule-card purple">
+    <h3>Thesis <span class="tip">?<span class="tip-box">Specify the degree level clearly. Theses published on Theseus can be referenced with the URN permalink, which is permanent and preferred over a direct URL.</span></span></h3>
+    <p>Harjunpää, A. 2022. [Title]. LAB University of Applied Sciences. Thesis (Master's degree). Retrieved on 2 May 2022. Available at https://…</p>
+  </div>
+  <div class="rule-card">
+    <h3>Images / Figures / Tables <span class="tip">?<span class="tip-box">Sources for all illustrations go in the same references list as all other sources — there is no separate list for images. The format follows the same rules as for the source type (book, web page, etc.).</span></span></h3>
+    <p>Sources for illustrations go in the <span class="highlight">same references list</span> — no separate list.<br>
+    Nagy, R. R. 2015. Datamancer's Steampunk Laptop. Retrieved on 10 February 2020. Available at http://…</p>
+  </div>
+  <div class="rule-card blue">
+    <h3>Secondary Source in the Ref List <span class="tip">?<span class="tip-box">You only list the source you actually read (the secondary source). The original author (primary source) is mentioned in the in-text reference but does not appear in the references list.</span></span></h3>
+    <p>Enter <span class="highlight">only the secondary source</span>. If you cited (Robson 1995, according to Hirsjärvi et al. 2009, 134), only Hirsjärvi et al. appears.</p>
+  </div>
+
+  <div class="divider"></div>
+  <div class="sub-heading">Example References List</div>
+  <div class="sub-desc">A sample references list showing different source types. Hover over any entry to see what type it is and why it is formatted that way.</div>
+
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem 1.8rem;margin-top:1rem;">
+    <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:1.1rem;">References</div>
+
+    <div class="ref-example-entry" style="position:relative;padding:0.55rem 0.7rem;border-radius:var(--radius-sm);margin-bottom:0.3rem;cursor:pointer;transition:background 0.15s;" onmouseenter="this.querySelector('.ref-tooltip').style.display='block'" onmouseleave="this.querySelector('.ref-tooltip').style.display='none'">
+      <p style="font-size:0.87rem;line-height:1.65;color:var(--text);">Ashkanasy, N. M. 2009. The Australian Enigma. In Chhokar, J. S. &amp; House, R. J. (Eds.). Culture and Leadership Across the World – The GLOBE Book of In-Depth Studies of 25 Societies. New York: Psychology Press, 299–334.</p>
+      <div class="ref-tooltip" style="display:none;position:absolute;left:0;top:calc(100% + 6px);z-index:300;background:var(--text);color:#f5f6f4;font-size:0.78rem;line-height:1.55;padding:0.65rem 0.85rem;border-radius:var(--radius-sm);width:320px;box-shadow:0 4px 18px rgba(0,0,0,0.18);pointer-events:none;">
+        <strong style="color:var(--teal-mid);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.09em;">Article in an Edited Compilation</strong><br><br>
+        Format: Author. Year. Article title. In Editor (Eds.). Book title. Place: Publisher, pages.<br><br>
+        Note the "In" before the editor's name. The book title is in italics. All authors named — "et al." is never used here.
+      </div>
+    </div>
+
+    <div class="ref-example-entry" style="position:relative;padding:0.55rem 0.7rem;border-radius:var(--radius-sm);margin-bottom:0.3rem;cursor:pointer;transition:background 0.15s;" onmouseenter="this.querySelector('.ref-tooltip').style.display='block'" onmouseleave="this.querySelector('.ref-tooltip').style.display='none'">
+      <p style="font-size:0.87rem;line-height:1.65;color:var(--text);">Biobank Act 688/2012.</p>
+      <div class="ref-tooltip" style="display:none;position:absolute;left:0;top:calc(100% + 6px);z-index:300;background:var(--text);color:#f5f6f4;font-size:0.78rem;line-height:1.55;padding:0.65rem 0.85rem;border-radius:var(--radius-sm);width:320px;box-shadow:0 4px 18px rgba(0,0,0,0.18);pointer-events:none;">
+        <strong style="color:var(--teal-mid);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.09em;">Act / Decree</strong><br><br>
+        Format: Name of Act Code/Year.<br><br>
+        The minimal entry is the official name and code number. Ends with a full stop. No author, no publisher. Optionally, you may add the source database and retrieval link.
+      </div>
+    </div>
+
+    <div class="ref-example-entry" style="position:relative;padding:0.55rem 0.7rem;border-radius:var(--radius-sm);margin-bottom:0.3rem;cursor:pointer;transition:background 0.15s;" onmouseenter="this.querySelector('.ref-tooltip').style.display='block'" onmouseleave="this.querySelector('.ref-tooltip').style.display='none'">
+      <p style="font-size:0.87rem;line-height:1.65;color:var(--text);">Brynjolfsson, E. &amp; McAfee, A. 2014. The Second Machine Age: Work, Progress, and Prosperity in a Time of Brilliant Technologies. First Edition. New York: W. W. Norton.</p>
+      <div class="ref-tooltip" style="display:none;position:absolute;left:0;top:calc(100% + 6px);z-index:300;background:var(--text);color:#f5f6f4;font-size:0.78rem;line-height:1.55;padding:0.65rem 0.85rem;border-radius:var(--radius-sm);width:320px;box-shadow:0 4px 18px rgba(0,0,0,0.18);pointer-events:none;">
+        <strong style="color:var(--teal-mid);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.09em;">Printed Book — Two Authors</strong><br><br>
+        Format: Surname, I. &amp; Surname, I. Year. Title. Edition (if not first). Place: Publisher.<br><br>
+        Two authors joined with &amp; (ampersand), never "and". Edition included here as it is stated in the source. If the place of publication or publisher is missing, simply omit it.
+      </div>
+    </div>
+
+    <div class="ref-example-entry" style="position:relative;padding:0.55rem 0.7rem;border-radius:var(--radius-sm);margin-bottom:0.3rem;cursor:pointer;transition:background 0.15s;" onmouseenter="this.querySelector('.ref-tooltip').style.display='block'" onmouseleave="this.querySelector('.ref-tooltip').style.display='none'">
+      <p style="font-size:0.87rem;line-height:1.65;color:var(--text);">Finnish Nurses Association. Professional Ethics and Collegiality. Retrieved on 12 August 2020. Available at https://sairaanhoitajat.fi/en/profession-and-skills/professional-ethics-and-collegiality/</p>
+      <div class="ref-tooltip" style="display:none;position:absolute;left:0;top:calc(100% + 6px);z-index:300;background:var(--text);color:#f5f6f4;font-size:0.78rem;line-height:1.55;padding:0.65rem 0.85rem;border-radius:var(--radius-sm);width:320px;box-shadow:0 4px 18px rgba(0,0,0,0.18);pointer-events:none;">
+        <strong style="color:var(--teal-mid);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.09em;">Web Page — No Author, No Year</strong><br><br>
+        Format: Organisation Name. Page Title. Retrieved on [date]. Available at [URL]<br><br>
+        No year found → year is simply omitted; do not write "n.d.". The organisation name serves as the author. No full stop after the URL.
+      </div>
+    </div>
+
+    <div class="ref-example-entry" style="position:relative;padding:0.55rem 0.7rem;border-radius:var(--radius-sm);margin-bottom:0.3rem;cursor:pointer;transition:background 0.15s;" onmouseenter="this.querySelector('.ref-tooltip').style.display='block'" onmouseleave="this.querySelector('.ref-tooltip').style.display='none'">
+      <p style="font-size:0.87rem;line-height:1.65;color:var(--text);">Green, M. 2022. Managing Director. DuraPipes Ltd. Interview on 5 February 2022.</p>
+      <div class="ref-tooltip" style="display:none;position:absolute;left:0;top:calc(100% + 6px);z-index:300;background:var(--text);color:#f5f6f4;font-size:0.78rem;line-height:1.55;padding:0.65rem 0.85rem;border-radius:var(--radius-sm);width:320px;box-shadow:0 4px 18px rgba(0,0,0,0.18);pointer-events:none;">
+        <strong style="color:var(--teal-mid);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.09em;">Interview — Background Research</strong><br><br>
+        Format: Surname, I. Year. Title/Position. Organisation. Interview on [date].<br><br>
+        Only background research interviews appear here. Interviews used to gather empirical research data are anonymous and are never included in the references list.
+      </div>
+    </div>
+
+    <div class="ref-example-entry" style="position:relative;padding:0.55rem 0.7rem;border-radius:var(--radius-sm);margin-bottom:0.3rem;cursor:pointer;transition:background 0.15s;" onmouseenter="this.querySelector('.ref-tooltip').style.display='block'" onmouseleave="this.querySelector('.ref-tooltip').style.display='none'">
+      <p style="font-size:0.87rem;line-height:1.65;color:var(--text);">Harjunpää, A. 2022. Yksintyöskentelyn tiedonhallinnan ja tietojohtamisen kehittäminen osaksi organisaation toimintastrategiaa. LAB University of Applied Sciences. Thesis (Master's degree). Retrieved on 2 May 2022. Available at https://urn.fi/URN:NBN:fi:amk-202204195388</p>
+      <div class="ref-tooltip" style="display:none;position:absolute;left:0;top:calc(100% + 6px);z-index:300;background:var(--text);color:#f5f6f4;font-size:0.78rem;line-height:1.55;padding:0.65rem 0.85rem;border-radius:var(--radius-sm);width:320px;box-shadow:0 4px 18px rgba(0,0,0,0.18);pointer-events:none;">
+        <strong style="color:var(--teal-mid);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.09em;">Thesis (Online)</strong><br><br>
+        Format: Surname, I. Year. Title. University. Thesis (degree level). Retrieved on [date]. Available at [URL]<br><br>
+        State the degree level clearly: Bachelor's or Master's. The URN permalink is preferred over a direct URL as it is permanent. No full stop after the link.
+      </div>
+    </div>
+
+    <div class="ref-example-entry" style="position:relative;padding:0.55rem 0.7rem;border-radius:var(--radius-sm);margin-bottom:0.3rem;cursor:pointer;transition:background 0.15s;" onmouseenter="this.querySelector('.ref-tooltip').style.display='block'" onmouseleave="this.querySelector('.ref-tooltip').style.display='none'">
+      <p style="font-size:0.87rem;line-height:1.65;color:var(--text);">Lepore, J. 2020. All the King's Data: Computer forecasting in the 1960 Presidential election. The New Yorker, August 3 &amp; 10/2020, 18–24.</p>
+      <div class="ref-tooltip" style="display:none;position:absolute;left:0;top:calc(100% + 6px);z-index:300;background:var(--text);color:#f5f6f4;font-size:0.78rem;line-height:1.55;padding:0.65rem 0.85rem;border-radius:var(--radius-sm);width:320px;box-shadow:0 4px 18px rgba(0,0,0,0.18);pointer-events:none;">
+        <strong style="color:var(--teal-mid);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.09em;">Magazine / Newspaper Article</strong><br><br>
+        Format: Surname, I. Year. Article title. Journal/Magazine, issue/volume/date, pages.<br><br>
+        For academic journals, use volume and issue number (e.g. Vol. 13 (8)). For magazines and newspapers, use the full issue date. Always include the page range.
+      </div>
+    </div>
+
+    <div class="ref-example-entry" style="position:relative;padding:0.55rem 0.7rem;border-radius:var(--radius-sm);margin-bottom:0.3rem;cursor:pointer;transition:background 0.15s;" onmouseenter="this.querySelector('.ref-tooltip').style.display='block'" onmouseleave="this.querySelector('.ref-tooltip').style.display='none'">
+      <p style="font-size:0.87rem;line-height:1.65;color:var(--text);">Loxton, M., Truskett, R., Scarf, B., Sindone, L., Baldry, G. &amp; Zhao, Y. 2020. Consumer Behaviour during Crises: Preliminary Research on How Coronavirus Has Manifested Consumer Panic Buying, Herd Mentality, Changing Discretionary Spending and the Role of the Media in Influencing Behaviour. Journal of Risk and Financial Management, Vol. 13 (8), 166. Retrieved on 1 June 2021. Available at DOI 10.3390/jrfm13080166</p>
+      <div class="ref-tooltip" style="display:none;position:absolute;left:0;top:calc(100% + 6px);z-index:300;background:var(--text);color:#f5f6f4;font-size:0.78rem;line-height:1.55;padding:0.65rem 0.85rem;border-radius:var(--radius-sm);width:320px;box-shadow:0 4px 18px rgba(0,0,0,0.18);pointer-events:none;">
+        <strong style="color:var(--teal-mid);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.09em;">Online Journal Article — Six Authors</strong><br><br>
+        Format: All authors listed with &amp; before the last. Year. Article title. Journal, Vol. X (Y), article/page no. Retrieved on [date]. Available at DOI [link]<br><br>
+        All six authors must be named — "et al." is forbidden in the references list. "166" here is an article number, not a page number. A DOI link is preferred over a URL when available.
+      </div>
+    </div>
+
+    <div class="ref-example-entry" style="position:relative;padding:0.55rem 0.7rem;border-radius:var(--radius-sm);margin-bottom:0.3rem;cursor:pointer;transition:background 0.15s;" onmouseenter="this.querySelector('.ref-tooltip').style.display='block'" onmouseleave="this.querySelector('.ref-tooltip').style.display='none'">
+      <p style="font-size:0.87rem;line-height:1.65;color:var(--text);">Zhivotov, D. &amp; Tilinin, Y. 2020. Experimental studies of the strength of nodal joints of geodesic domes made of wood and fiberglass. Publication Series of LAB University of Applied Sciences, part 2. Retrieved on 10 July 2020. Available at https://www.theseus.fi/bitstream/handle/10024/335985/LAB_2020_02.pdf</p>
+      <div class="ref-tooltip" style="display:none;position:absolute;left:0;top:calc(100% + 6px);z-index:300;background:var(--text);color:#f5f6f4;font-size:0.78rem;line-height:1.55;padding:0.65rem 0.85rem;border-radius:var(--radius-sm);width:320px;box-shadow:0 4px 18px rgba(0,0,0,0.18);pointer-events:none;">
+        <strong style="color:var(--teal-mid);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.09em;">Online Document (with Author)</strong><br><br>
+        Format: Surname, I. &amp; Surname, I. Year. Title. Publisher. Retrieved on [date]. Available at [URL]<br><br>
+        Retrieval date is required for all digital sources. No full stop after the URL. If access is restricted, write "Limited availability at" instead of "Available at".
+      </div>
+    </div>
+
+    <div style="margin-top:1.1rem;padding-top:0.9rem;border-top:1px dashed var(--border);font-size:0.75rem;color:var(--muted);display:flex;align-items:center;gap:0.4rem;">
+      <span style="background:var(--teal-lt);color:var(--teal-dk);border:1px solid var(--teal-mid);border-radius:4px;padding:0.1rem 0.45rem;font-size:0.68rem;font-weight:600;">Hover</span>
+      over any entry to see the source type and formatting rules.
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════ QUIZ -->
+<div class="section" id="section-quiz">
+  <div class="section-header">
+    <div class="section-label">Module 06</div>
+    <h1 class="section-title">Knowledge Quiz</h1>
+    <p class="section-desc">20 questions across all topics. Each correct answer earns 5 points.</p>
+  </div>
+  <div id="quizContainer"></div>
+</div>
+
+<!-- ═══════════════════════════ BUILDER -->
+<div class="section" id="section-builder">
+  <div class="section-header">
+    <div class="section-label">Module 07</div>
+    <h1 class="section-title">Reference Builder</h1>
+    <p class="section-desc">Select a source type, fill in the fields, and get a correctly formatted entry.</p>
+  </div>
+  <!-- Tool A: Example Viewer -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem 1.5rem;margin-bottom:1.5rem;">
+    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.5rem;">
+      <span style="background:var(--amber);color:#fff;font-size:0.68rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:999px;letter-spacing:0.07em;text-transform:uppercase;">Tool A</span>
+      <span style="font-weight:600;font-size:0.95rem;">See a Worked Example</span>
+    </div>
+    <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1rem;">Select a source type to see a complete, correctly formatted example with all fields filled in.</p>
+    <div class="ref-fields" style="grid-template-columns:1fr;margin-bottom:1.1rem;">
+      <div class="ref-field">
+        <label>Source Type</label>
+        <select id="exampleType" onchange="showExample()">
+          <option value="book">Printed Book</option>
+          <option value="article">Journal / Magazine Article</option>
+          <option value="web">Web Page (with author)</option>
+          <option value="webnoauthor">Web Page (no author)</option>
+          <option value="act">Act / Decree</option>
+          <option value="thesis">Thesis</option>
+          <option value="interview">Interview (background research)</option>
+        </select>
+      </div>
+    </div>
+    <div id="exampleFields" class="ref-fields"></div>
+    <div class="ref-output-label">Formatted Reference Entry</div>
+    <div class="ref-output" id="exampleOutput"></div>
+    <div id="exampleNote" style="margin-top:0.7rem;font-size:0.8rem;color:var(--muted);line-height:1.5;"></div>
+  </div>
+
+  <!-- Tool B: Builder -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem 1.5rem;">
+    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1.1rem;">
+      <span style="background:var(--teal);color:#fff;font-size:0.68rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:999px;letter-spacing:0.07em;text-transform:uppercase;">Tool B</span>
+      <span style="font-weight:600;font-size:0.95rem;">Build Your Own Reference</span>
+    </div>
+    <div class="ref-fields" style="grid-template-columns:1fr;margin-bottom:1.1rem;">
+      <div class="ref-field">
+        <label>Source Type</label>
+        <select id="refType" onchange="updateRefBuilder()">
+          <option value="book">Printed Book</option>
+          <option value="article">Journal / Magazine Article</option>
+          <option value="web">Web Page (with author)</option>
+          <option value="webnoauthor">Web Page (no author)</option>
+          <option value="act">Act / Decree</option>
+          <option value="thesis">Thesis</option>
+          <option value="interview">Interview (background research)</option>
+        </select>
+      </div>
+    </div>
+    <div id="refFields" class="ref-fields"></div>
+    <div class="ref-output-label">Generated Reference Entry</div>
+    <div class="ref-output" id="refOutput">Fill in the fields above…</div>
+    <button class="btn" onclick="copyRef()">Copy to Clipboard</button>
+  </div>
+</div>
+
+
+</main>
+
+<footer>
+  Built for LAB University of Applied Sciences &nbsp;·&nbsp; Thesis Guidebook (August 2025) &nbsp;·&nbsp; Tool by <a href="https://www.linkedin.com/in/hagu1/" target="_blank">Hamid Guedra</a>
+</footer>
+
+<script>
+// ── GLOBALS ──────────────────────────────────────────────
+let totalScore = 0;
+function addScore(n) {
+  totalScore += n;
+  document.getElementById('scoreBadge').textContent = 'Score: ' + totalScore + ' / 145 pts';
+}
+
+// ── NAVIGATION ────────────────────────────────────────────
+const sectionOrder = ['overview','style','intext','reflist','builder','quiz'];
+function showSection(id, tabEl) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  if (tabEl) tabEl.classList.add('active');
+}
+function goTo(id) {
+  const idx = sectionOrder.indexOf(id);
+  const tabs = document.querySelectorAll('.tab');
+  if (idx >= 0 && tabs[idx]) showSection(id, tabs[idx]);
+}
+
+// ── FILL-IN ───────────────────────────────────────────────
+function checkFill() {
+  const answers = { f1:'two', f2:'two', f3:'above', f4:'below' };
+  let correct = 0;
+  Object.entries(answers).forEach(([id, ans]) => {
+    const el = document.getElementById(id);
+    const val = el.value.trim().toLowerCase();
+    const ok = val === ans || val === '2';
+    el.classList.toggle('correct-fill', ok);
+    el.classList.toggle('wrong-fill', !ok);
+    if (ok) correct++;
+  });
+  const fb = document.getElementById('fillFeedback');
+  fb.className = 'feedback show ' + (correct === 4 ? 'correct-fb' : 'wrong-fb');
+  fb.textContent = correct === 4
+    ? '✓ Perfect! All four answers correct.'
+    : `${correct}/4 correct. Answers: two · two · above · below.`;
+  if (correct === 4) addScore(10);
+}
+function resetFill() {
+  ['f1','f2','f3','f4'].forEach(id => {
+    const el = document.getElementById(id);
+    el.value = ''; el.className = 'fill-blank';
+  });
+  const fb = document.getElementById('fillFeedback');
+  fb.className = 'feedback'; fb.textContent = '';
+}
+
+// ── DRAG ORDER ────────────────────────────────────────────
+const correctOrder = [
+  'Title page','Abstract','Contents','List of abbreviations (if applicable)',
+  'Introduction','Main body chapters','Summary and discussion','References','Appendices (if necessary)'
+];
+let draggedItem = null;
+
+function initOrder() {
+  const shuffled = [...correctOrder].sort(() => Math.random() - 0.5);
+  const src = document.getElementById('dragSource');
+  src.innerHTML = '';
+  shuffled.forEach(item => {
+    const el = document.createElement('div');
+    el.className = 'drag-item';
+    el.textContent = item;
+    el.draggable = true;
+    el.addEventListener('dragstart', () => { draggedItem = el; el.classList.add('dragging'); });
+    el.addEventListener('dragend', () => el.classList.remove('dragging'));
+    src.appendChild(el);
+  });
+  const zones = document.getElementById('orderZones');
+  zones.innerHTML = '';
+  correctOrder.forEach((_, i) => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:0.55rem;margin-bottom:0.38rem;';
+    const lbl = document.createElement('div');
+    lbl.style.cssText = 'font-family:"DM Mono",monospace;font-size:0.68rem;color:var(--muted);width:1.3rem;text-align:right;flex-shrink:0;';
+    lbl.textContent = (i + 1) + '.';
+    const zone = document.createElement('div');
+    zone.className = 'drop-zone'; zone.style.flex = '1'; zone.dataset.pos = i;
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+    zone.addEventListener('drop', e => {
+      e.preventDefault(); zone.classList.remove('over');
+      if (draggedItem) {
+        if (zone.querySelector('.drag-item')) src.appendChild(zone.querySelector('.drag-item'));
+        zone.appendChild(draggedItem); draggedItem = null;
+      }
+    });
+    row.appendChild(lbl); row.appendChild(zone); zones.appendChild(row);
+  });
+  document.getElementById('orderFeedback').className = 'feedback';
+  document.getElementById('orderFeedback').textContent = '';
+}
+
+function checkOrder() {
+  const zones = document.querySelectorAll('.drop-zone');
+  let correct = 0;
+  zones.forEach((zone, i) => {
+    const item = zone.querySelector('.drag-item');
+    if (item && item.textContent === correctOrder[i]) {
+      item.style.cssText = 'background:var(--correct-lt);border-color:var(--correct);color:var(--correct);';
+      correct++;
+    } else if (item) {
+      item.style.cssText = 'background:var(--wrong-lt);border-color:var(--wrong);color:var(--wrong);';
+    }
+  });
+  const fb = document.getElementById('orderFeedback');
+  fb.className = 'feedback show ' + (correct === correctOrder.length ? 'correct-fb' : 'wrong-fb');
+  fb.textContent = correct === correctOrder.length
+    ? '✓ Correct order! Well done.'
+    : `${correct}/${correctOrder.length} correct. Review the required sections and try again.`;
+  if (correct === correctOrder.length) addScore(15);
+}
+
+// ── SPOT THE ERROR ────────────────────────────────────────
+const spotErrors = [
+  { ref:'(Chang, 2013, 23.)', options:['Comma after author name — should be a space only','Missing page number','Full stop should be outside brackets'], correct:0, explanation:'In-text references do not use commas between author and year. Correct format: (Chang 2013, 23.)' },
+  { ref:'Jones, Smith & Brown (2009, 43) argue that…', options:['Should use "et al." for 3 or more authors','Should use semicolons between authors','Year must come before the authors'], correct:0, explanation:'With 3 or more authors in a narrative reference, use the first author + et al.: Jones et al. (2009, 43)' },
+  { ref:'(Siukosaari 2015, 205; Ojanen 2016, 18)', options:['Sources must be alphabetical, not chronological','The semicolons should be commas','Full stop missing inside the bracket'], correct:2, explanation:'Multiple sources in one bracket need a full stop inside: (Siukosaari 2015, 205; Ojanen 2016, 18.)' },
+  { ref:'Taylor (2009, according to Smith 2015, 22)', options:['Secondary source format is correct','Only the primary source goes in the ref list, not the secondary','Should list both sources in the ref list'], correct:1, explanation:'Only the secondary source (Smith 2015) goes in the references list — not the primary source you could not access.' }
+];
+let spotAnswered = [];
+function initSpotErrors() {
+  const container = document.getElementById('spoterrContainer');
+  if (!container) return;
+  container.innerHTML = '';
+  spotErrors.forEach((q, qi) => {
+    spotAnswered[qi] = false;
+    const card = document.createElement('div');
+    card.className = 'question-card'; card.style.marginBottom = '0.85rem';
+    card.innerHTML = `<div class="q-category">Error ${qi+1}</div>
+      <div style="font-family:'DM Mono',monospace;font-size:0.84rem;color:var(--teal-dk);background:var(--teal-lt);border-radius:6px;padding:0.55rem 0.85rem;margin-bottom:0.9rem;border:1px solid var(--teal-mid);">${q.ref}</div>
+      <div class="options" id="se-opts-${qi}"></div>
+      <div class="feedback" id="se-fb-${qi}"></div>`;
+    container.appendChild(card);
+    const opts = card.querySelector(`#se-opts-${qi}`);
+    q.options.forEach((opt, oi) => {
+      const btn = document.createElement('button');
+      btn.className = 'option'; btn.textContent = opt;
+      btn.onclick = () => {
+        if (spotAnswered[qi]) return;
+        spotAnswered[qi] = true;
+        opts.querySelectorAll('.option').forEach(b => b.disabled = true);
+        const fb = document.getElementById(`se-fb-${qi}`);
+        if (oi === q.correct) {
+          btn.classList.add('correct');
+          fb.className = 'feedback show correct-fb';
+          fb.textContent = '✓ Correct! ' + q.explanation;
+          addScore(5);
+        } else {
+          btn.classList.add('wrong');
+          opts.querySelectorAll('.option')[q.correct].classList.add('correct');
+          fb.className = 'feedback show wrong-fb';
+          fb.textContent = '✗ ' + q.explanation;
+        }
+      };
+      opts.appendChild(btn);
+    });
+  });
+}
+
+// ── QUIZ ──────────────────────────────────────────────────
+const allQuestions = [
+  { cat:'Writing Style', q:'Where should the caption of a TABLE be placed?', opts:['Below the table','Above the table','To the right of the table','Inside the table'], correct:1, exp:'Table captions are always placed ABOVE the table.' },
+  { cat:'Writing Style', q:'A chapter has one very long paragraph. Is this acceptable?', opts:['Yes, if the paragraph is detailed enough','No — each chapter must have at least two paragraphs','Yes, if there is a subheading','Only in the introduction chapter'], correct:1, exp:'Every chapter must contain at least two paragraphs.' },
+  { cat:'Writing Style', q:'Which sentence is in better academic style?', opts:['"The evaluation was carried out by the team."','"The team evaluated the results."','Both are equally acceptable','Neither is acceptable'], correct:1, exp:'Avoid passive circumlocutions. Prefer: "evaluated" over "evaluation was carried out".' },
+  { cat:'Writing Style', q:'When bullet points are NOT full sentences, how should they end?', opts:['Each bullet ends with a full stop','No punctuation after any bullet','Full stop only after the last bullet','Commas after each bullet except the last'], correct:2, exp:'When bullets are not full sentences: start lowercase, add a full stop only after the last bullet.' },
+  { cat:'In-Text Refs', q:'A parenthetical reference covers a single sentence. Where does the full stop go?', opts:['Inside the bracket, before ")"','Outside the bracket, after ")"','There is no full stop','Before the opening bracket'], correct:1, exp:'Single-sentence reference: full stop goes OUTSIDE the bracket — (Smith 2020, 45).' },
+  { cat:'In-Text Refs', q:'A parenthetical reference covers an entire paragraph. Where does the full stop go?', opts:['Outside the bracket','Inside the bracket, before ")"','No full stop needed','Before the opening bracket'], correct:1, exp:'Multi-sentence/paragraph reference: full stop goes INSIDE the bracket — (Smith 2020, 45.)' },
+  { cat:'In-Text Refs', q:'How do you cite a source with four authors in-text?', opts:['List all four surnames','First + second surname only','First surname + et al.','Use the title instead'], correct:2, exp:'Three or more authors: use the first surname + et al. — e.g. (Jones et al. 2009, 43).' },
+  { cat:'In-Text Refs', q:'Two sources are cited in the same parenthetical reference. How are they ordered?', opts:['Alphabetically by author surname','Randomly','Chronologically (oldest first)','By page number'], correct:2, exp:'Multiple sources in one reference are listed in chronological order, separated by semicolons.' },
+  { cat:'In-Text Refs', q:'You cannot find the primary source. Which source appears in the references list?', opts:['The primary source','Both sources','The secondary source only','Neither — mention both only in text'], correct:2, exp:'Only the secondary source (the one you actually read) appears in the references list.' },
+  { cat:'In-Text Refs', q:'No author is listed for a web page. What do you use in the in-text reference?', opts:['The URL','The date retrieved','The name of the publishing organisation or page title','Leave the author field blank'], correct:2, exp:'If no author: use the name of the publishing body or the page title as the author.' },
+  { cat:'In-Text Refs', q:'An author has two publications from 2016 that you both cite. How do you distinguish them?', opts:['Add "first edition" and "second edition"','Use lowercase letters: 2016a, 2016b','Use the page numbers only','List the journal name in-text'], correct:1, exp:'Same author, same year: add lowercase letters to both the in-text reference and the references list entry.' },
+  { cat:'Ref List', q:'In the references list, which separator goes between two authors?', opts:['Comma','Semicolon','Ampersand (&)','And'], correct:2, exp:'Two authors in the references list are separated by an ampersand (&).' },
+  { cat:'Ref List', q:'Is "et al." permitted in the references list?', opts:['Yes, for 4+ authors','Yes, for 3+ authors','No — all authors must be named','Yes, always'], correct:2, exp:'In the references list, "et al." is prohibited. All authors must be named.' },
+  { cat:'Ref List', q:'For a digital source, what additional piece of information is required?', opts:['Publisher city','ISBN number','The retrieval date and URL','The number of pages'], correct:2, exp:'Digital sources require a retrieval date and the URL or DOI link.' },
+  { cat:'Ref List', q:'Should a full stop be added after a web address in the references list?', opts:['Yes, always','No, never','Only if the URL is on its own line','Only for DOI links'], correct:1, exp:'No full stop is added after a web address in the references list.' },
+  { cat:'Ref List', q:'Where do sources for images, figures, and tables appear?', opts:['In a separate list of illustration sources','In the references list together with all other sources','In footnotes only','In appendices'], correct:1, exp:'Image, figure, and table sources are listed in the same references list as all other sources — no separate list.' },
+  { cat:'Structure', q:'Which section directly follows "Summary and discussion"?', opts:['Introduction','Main body','References','Appendices'], correct:2, exp:'The order is: … Summary and discussion → References → Appendices.' },
+  { cat:'Structure', q:'An interview conducted to gather empirical research data should…', opts:['Be referenced in the references list under the interviewee\'s name','Be listed as an anonymous source in the references list','Not be included in the references list at all','Be placed in appendices'], correct:2, exp:'Empirical data interviews are anonymous and are NOT included in the references list.' },
+  { cat:'Structure', q:'A figure is too large to fit on one page with its caption. Where should it go?', opts:['Reduce the figure so it fits','Separate the caption to the next page','Place it in an appendix','Split the figure across two pages'], correct:2, exp:'Figures/tables that cannot fit on one page with their caption are placed in appendices.' },
+  { cat:'Style', q:'A translated quotation from a non-English source is…', opts:['Typed in italics like a direct quotation','Not typed in italics; credited as author\'s translation','Not permitted — always summarise','Typed in bold'], correct:1, exp:'A translated quotation is not a direct quotation — not italicised, reference as: (Author Year, author\'s translation).' },
+];
+
+let quizState = { current:0, answered:false, score:0, questions:[] };
+function initQuiz() {
+  quizState.questions = [...allQuestions].sort(() => Math.random() - 0.5);
+  quizState.current = 0; quizState.answered = false; quizState.score = 0;
+  renderQuestion();
+}
+function renderQuestion() {
+  const container = document.getElementById('quizContainer');
+  const q = quizState.questions[quizState.current];
+  const pct = (quizState.current / quizState.questions.length) * 100;
+  container.innerHTML = `
+    <div class="quiz-progress">
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="progress-text">${quizState.current + 1} / ${quizState.questions.length}</div>
+    </div>
+    <div class="question-card">
+      <div class="q-category">${q.cat}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="options" id="qOpts"></div>
+      <div class="feedback" id="qFb"></div>
+      <button class="btn" id="nextBtn" style="display:none;" onclick="nextQuestion()">Next →</button>
+    </div>`;
+  const opts = document.getElementById('qOpts');
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option'; btn.textContent = opt;
+    btn.onclick = () => answerQuestion(i);
+    opts.appendChild(btn);
+  });
+}
+function answerQuestion(i) {
+  if (quizState.answered) return;
+  quizState.answered = true;
+  const q = quizState.questions[quizState.current];
+  const opts = document.querySelectorAll('#qOpts .option');
+  opts.forEach(b => b.disabled = true);
+  const fb = document.getElementById('qFb');
+  if (i === q.correct) {
+    opts[i].classList.add('correct');
+    fb.className = 'feedback show correct-fb';
+    fb.textContent = '✓ Correct! ' + q.exp;
+    quizState.score++; addScore(5);
+  } else {
+    opts[i].classList.add('wrong');
+    opts[q.correct].classList.add('correct');
+    fb.className = 'feedback show wrong-fb';
+    fb.textContent = '✗ ' + q.exp;
+  }
+  document.getElementById('nextBtn').style.display = 'inline-flex';
+}
+function nextQuestion() {
+  quizState.current++;
+  if (quizState.current >= quizState.questions.length) showResults();
+  else { quizState.answered = false; renderQuestion(); }
+}
+function showResults() {
+  const pct = Math.round((quizState.score / quizState.questions.length) * 100);
+  const msg = pct === 100 ? 'Perfect score! Outstanding work.' :
+              pct >= 80  ? 'Excellent — you have a strong grasp of the guidelines.' :
+              pct >= 60  ? 'Good effort. Review the modules where you made mistakes.' :
+                           'Keep studying! Work through the content modules and try again.';
+  document.getElementById('quizContainer').innerHTML = `
+    <div class="result-screen">
+      <div class="result-score">${pct}%</div>
+      <div class="result-label">${quizState.score} / ${quizState.questions.length} correct</div>
+      <div class="result-msg">${msg}</div>
+      <button class="btn" onclick="initQuiz()">Retake Quiz</button>
+    </div>`;
+}
+
+// ── REFERENCE BUILDER ─────────────────────────────────────
+const refConfigs = {
+  book:{ fields:[{id:'author',label:'Author(s) — Surname, I. & Surname, I.',placeholder:'e.g. Smith, J. & Brown, A.'},{id:'year',label:'Year',placeholder:'e.g. 2022'},{id:'title',label:'Title of Book',placeholder:'e.g. Academic Writing Today'},{id:'edition',label:'Edition (optional)',placeholder:'e.g. 2nd ed.'},{id:'place',label:'Place of Publication',placeholder:'e.g. Helsinki'},{id:'publisher',label:'Publisher',placeholder:'e.g. Otava'}],
+    format:d=>{let s=`${d.author||'[Author]'}. ${d.year||'[Year]'}. ${d.title||'[Title]'}.`;if(d.edition)s+=` ${d.edition}.`;s+=` ${d.place||'[Place]'}: ${d.publisher||'[Publisher]'}.`;return s;}},
+  article:{ fields:[{id:'author',label:'Author(s)',placeholder:'e.g. Lepore, J.'},{id:'year',label:'Year',placeholder:'e.g. 2020'},{id:'title',label:'Article Title',placeholder:'e.g. All the King\'s Data'},{id:'journal',label:'Journal / Magazine Name',placeholder:'e.g. The New Yorker'},{id:'issue',label:'Volume / Issue / Date',placeholder:'e.g. August 3 & 10/2020'},{id:'pages',label:'Pages',placeholder:'e.g. 18–24'}],
+    format:d=>`${d.author||'[Author]'}. ${d.year||'[Year]'}. ${d.title||'[Title]'}. ${d.journal||'[Journal]'}, ${d.issue||'[Issue]'}, ${d.pages||'[Pages]'}.`},
+  web:{ fields:[{id:'author',label:'Author(s)',placeholder:'e.g. Zhivotov, D. & Tilinin, Y.'},{id:'year',label:'Year',placeholder:'e.g. 2020'},{id:'title',label:'Title of Page / Document',placeholder:'e.g. Experimental studies…'},{id:'publisher',label:'Publisher / Website Name',placeholder:'e.g. LAB University of Applied Sciences'},{id:'retrieved',label:'Retrieved on (date)',placeholder:'e.g. 10 July 2020'},{id:'url',label:'URL or DOI',placeholder:'e.g. https://…'}],
+    format:d=>`${d.author||'[Author]'}. ${d.year||'[Year]'}. ${d.title||'[Title]'}. ${d.publisher||'[Publisher]'}. Retrieved on ${d.retrieved||'[date]'}. Available at ${d.url||'[URL]'}`},
+  webnoauthor:{ fields:[{id:'orgname',label:'Organisation Name or Page Title',placeholder:'e.g. Finnish Nurses Association'},{id:'pagetitle',label:'Page / Document Title',placeholder:'e.g. Professional Ethics and Collegiality'},{id:'retrieved',label:'Retrieved on (date)',placeholder:'e.g. 12 August 2020'},{id:'url',label:'URL',placeholder:'e.g. https://…'}],
+    format:d=>`${d.orgname||'[Organisation]'}. ${d.pagetitle||'[Title]'}. Retrieved on ${d.retrieved||'[date]'}. Available at ${d.url||'[URL]'}`},
+  act:{ fields:[{id:'name',label:'Name of Act / Decree',placeholder:'e.g. Biobank Act'},{id:'code',label:'Code Number / Year',placeholder:'e.g. 688/2012'}],
+    format:d=>`${d.name||'[Act Name]'} ${d.code||'[Code/Year]'}.`},
+  thesis:{ fields:[{id:'author',label:'Author',placeholder:'e.g. Harjunpää, A.'},{id:'year',label:'Year',placeholder:'e.g. 2022'},{id:'title',label:'Thesis Title',placeholder:'e.g. Title of thesis'},{id:'uni',label:'University',placeholder:'e.g. LAB University of Applied Sciences'},{id:'level',label:'Degree Level',placeholder:'e.g. Thesis (Master\'s degree)'},{id:'retrieved',label:'Retrieved on (date)',placeholder:'e.g. 2 May 2022'},{id:'url',label:'URL',placeholder:'e.g. https://urn.fi/…'}],
+    format:d=>`${d.author||'[Author]'}. ${d.year||'[Year]'}. ${d.title||'[Title]'}. ${d.uni||'[University]'}. ${d.level||'[Degree]'}. Retrieved on ${d.retrieved||'[date]'}. Available at ${d.url||'[URL]'}`},
+  interview:{ fields:[{id:'name',label:'Interviewee Name',placeholder:'e.g. Green, M.'},{id:'year',label:'Year',placeholder:'e.g. 2022'},{id:'title',label:'Title / Position',placeholder:'e.g. Managing Director'},{id:'org',label:'Organisation',placeholder:'e.g. DuraPipes Ltd.'},{id:'date',label:'Date of Interview',placeholder:'e.g. 5 February 2022'}],
+    format:d=>`${d.name||'[Name]'}. ${d.year||'[Year]'}. ${d.title||'[Title]'}. ${d.org||'[Organisation]'}. Interview on ${d.date||'[date]'}.`}
+};
+
+function updateRefBuilder() {
+  const type = document.getElementById('refType').value;
+  const config = refConfigs[type];
+  const fieldsDiv = document.getElementById('refFields');
+  fieldsDiv.innerHTML = '';
+  config.fields.forEach(f => {
+    const div = document.createElement('div');
+    div.className = 'ref-field';
+    div.innerHTML = `<label>${f.label}</label><input id="rb-${f.id}" placeholder="${f.placeholder}" oninput="generateRef()">`;
+    fieldsDiv.appendChild(div);
+  });
+  generateRef();
+}
+function generateRef() {
+  const type = document.getElementById('refType').value;
+  const config = refConfigs[type];
+  const data = {};
+  config.fields.forEach(f => { const el = document.getElementById('rb-'+f.id); data[f.id] = el ? el.value.trim() : ''; });
+  document.getElementById('refOutput').textContent = config.format(data);
+}
+function copyRef() {
+  navigator.clipboard.writeText(document.getElementById('refOutput').textContent).then(() => {
+    const btn = event.target; btn.textContent = '✓ Copied!';
+    setTimeout(() => btn.textContent = 'Copy to Clipboard', 1600);
+  });
+}
+
+// ── EXAMPLE VIEWER ───────────────────────────────────────
+const exampleData = {
+  book: {
+    fields: [
+      { label:'Author(s)', value:'Brynjolfsson, E. & McAfee, A.' },
+      { label:'Year', value:'2014' },
+      { label:'Title of Book', value:'The Second Machine Age: Work, Progress, and Prosperity in a Time of Brilliant Technologies' },
+      { label:'Edition', value:'First Edition' },
+      { label:'Place of Publication', value:'New York' },
+      { label:'Publisher', value:'W. W. Norton' },
+    ],
+    result: 'Brynjolfsson, E. & McAfee, A. 2014. The Second Machine Age: Work, Progress, and Prosperity in a Time of Brilliant Technologies. First Edition. New York: W. W. Norton.',
+    note: 'If no edition information is available, simply omit it. If the author\'s name or publisher location is missing, omit those fields — do not mark them as "unknown".'
+  },
+  article: {
+    fields: [
+      { label:'Author(s)', value:'Lepore, J.' },
+      { label:'Year', value:'2020' },
+      { label:'Article Title', value:'All the King\'s Data: Computer forecasting in the 1960 Presidential election' },
+      { label:'Journal / Magazine Name', value:'The New Yorker' },
+      { label:'Volume / Issue / Date', value:'August 3 & 10/2020' },
+      { label:'Pages', value:'18–24' },
+    ],
+    result: 'Lepore, J. 2020. All the King\'s Data: Computer forecasting in the 1960 Presidential election. The New Yorker, August 3 & 10/2020, 18–24.',
+    note: 'For academic journal articles, the volume and issue number are used instead of a date (e.g. Vol. 13 (8)). For newspaper articles, include the full date and page number.'
+  },
+  web: {
+    fields: [
+      { label:'Author(s)', value:'Zhivotov, D. & Tilinin, Y.' },
+      { label:'Year', value:'2020' },
+      { label:'Title of Page / Document', value:'Experimental studies of the strength of nodal joints of geodesic domes' },
+      { label:'Publisher / Website Name', value:'Publication Series of LAB University of Applied Sciences, part 2' },
+      { label:'Retrieved on (date)', value:'10 July 2020' },
+      { label:'URL or DOI', value:'https://www.theseus.fi/bitstream/handle/10024/335985/LAB_2020_02.pdf' },
+    ],
+    result: 'Zhivotov, D. & Tilinin, Y. 2020. Experimental studies of the strength of nodal joints of geodesic domes. Publication Series of LAB University of Applied Sciences, part 2. Retrieved on 10 July 2020. Available at https://www.theseus.fi/bitstream/handle/10024/335985/LAB_2020_02.pdf',
+    note: 'No full stop after the URL. Always include the retrieval date. If access is restricted (login/paywall), write "Limited availability at" instead of "Available at".'
+  },
+  webnoauthor: {
+    fields: [
+      { label:'Organisation Name or Page Title', value:'Finnish Nurses Association' },
+      { label:'Page / Document Title', value:'Professional Ethics and Collegiality' },
+      { label:'Retrieved on (date)', value:'12 August 2020' },
+      { label:'URL', value:'https://sairaanhoitajat.fi/en/profession-and-skills/professional-ethics-and-collegiality/' },
+    ],
+    result: 'Finnish Nurses Association. Professional Ethics and Collegiality. Retrieved on 12 August 2020. Available at https://sairaanhoitajat.fi/en/profession-and-skills/professional-ethics-and-collegiality/',
+    note: 'When there is no year of publication on the web page, the year is simply omitted from the entry — it is not replaced with "n.d." or similar.'
+  },
+  act: {
+    fields: [
+      { label:'Name of Act / Decree', value:'Biobank Act' },
+      { label:'Code Number / Year', value:'688/2012' },
+    ],
+    result: 'Biobank Act 688/2012.',
+    note: 'For a more detailed entry (optional), you may add the source database and retrieval information: "Government Decree on Narcotics Control 28 August 2008/548. Finlex. Retrieved on 2 April 2024. Available at https://…"'
+  },
+  thesis: {
+    fields: [
+      { label:'Author', value:'Harjunpää, A.' },
+      { label:'Year', value:'2022' },
+      { label:'Thesis Title', value:'Yksintyöskentelyn tiedonhallinnan ja tietojohtamisen kehittäminen osaksi organisaation toimintastrategiaa' },
+      { label:'University', value:'LAB University of Applied Sciences' },
+      { label:'Degree Level', value:'Thesis (Master\'s degree)' },
+      { label:'Retrieved on (date)', value:'2 May 2022' },
+      { label:'URL', value:'https://urn.fi/URN:NBN:fi:amk-202204195388' },
+    ],
+    result: 'Harjunpää, A. 2022. Yksintyöskentelyn tiedonhallinnan ja tietojohtamisen kehittäminen osaksi organisaation toimintastrategiaa. LAB University of Applied Sciences. Thesis (Master\'s degree). Retrieved on 2 May 2022. Available at https://urn.fi/URN:NBN:fi:amk-202204195388',
+    note: 'Bachelor\'s theses are referenced in the same way. Specify the degree level clearly: "Thesis (Bachelor\'s degree)" or "Thesis (Master\'s degree)".'
+  },
+  interview: {
+    fields: [
+      { label:'Interviewee Name', value:'Green, M.' },
+      { label:'Year', value:'2022' },
+      { label:'Title / Position', value:'Managing Director' },
+      { label:'Organisation', value:'DuraPipes Ltd.' },
+      { label:'Date of Interview', value:'5 February 2022' },
+    ],
+    result: 'Green, M. 2022. Managing Director. DuraPipes Ltd. Interview on 5 February 2022.',
+    note: 'This format is only for background research interviews. Interviews conducted to gather empirical research data are NOT included in the references list — those interviewees remain anonymous.'
+  }
+};
+
+function showExample() {
+  const type = document.getElementById('exampleType').value;
+  const ex = exampleData[type];
+  const fieldsDiv = document.getElementById('exampleFields');
+  fieldsDiv.innerHTML = '';
+  ex.fields.forEach(f => {
+    const div = document.createElement('div');
+    div.className = 'ref-field';
+    div.innerHTML = `<label>${f.label}</label>
+      <input value="${f.value.replace(/"/g,'&quot;')}" readonly
+        style="background:var(--teal-lt);color:var(--teal-dk);border-color:var(--teal-mid);cursor:default;">`;
+    fieldsDiv.appendChild(div);
+  });
+  document.getElementById('exampleOutput').textContent = ex.result;
+  const note = document.getElementById('exampleNote');
+  note.innerHTML = ex.note ? `<span style="color:var(--amber);font-weight:600;">ⓘ Note: </span>${ex.note}` : '';
+}
+
+// ── INIT ──────────────────────────────────────────────────
+window.onload = () => { initSpotErrors(); initQuiz(); updateRefBuilder(); showExample(); };
+</script>
+</body>
+</html>
